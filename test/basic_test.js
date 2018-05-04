@@ -20,6 +20,30 @@ suite('redeployability', function() {
     assert.equal(tcUrl.api(rootUrl + '/', 'auth', 'v1', '/foo/bar'), desiredUrl);
   });
 
+  test('schemas', function() {
+    const desiredUrl = `${rootUrl}/schemas/auth/v1/something.yml`;
+    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1', 'something.yml'), desiredUrl);
+    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1', 'something.yml'), desiredUrl);
+    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1', 'something.yml'), desiredUrl);
+    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1', 'something.yml'), desiredUrl);
+  });
+
+  test('api References', function() {
+    const desiredUrl = `${rootUrl}/references/auth/v1/api.json`;
+    assert.equal(tcUrl.apiReference(rootUrl, 'auth', 'v1'), desiredUrl);
+    assert.equal(tcUrl.apiReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
+    assert.equal(tcUrl.apiReference(rootUrl, 'auth', 'v1'), desiredUrl);
+    assert.equal(tcUrl.apiReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
+  });
+
+  test('exchange References', function() {
+    const desiredUrl = `${rootUrl}/references/auth/v1/exchanges.json`;
+    assert.equal(tcUrl.exchangeReference(rootUrl, 'auth', 'v1'), desiredUrl);
+    assert.equal(tcUrl.exchangeReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
+    assert.equal(tcUrl.exchangeReference(rootUrl, 'auth', 'v1'), desiredUrl);
+    assert.equal(tcUrl.exchangeReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
+  });
+
   test('ui', function() {
     const desiredUrl = `${rootUrl}/foo/bar`;
     assert.equal(tcUrl.ui(rootUrl, 'foo/bar'), desiredUrl);
@@ -46,6 +70,30 @@ suite('heroku', function() {
     assert.equal(tcUrl.api(rootUrl + '/', 'auth', 'v1', 'foo/bar'), desiredUrl);
     assert.equal(tcUrl.api(rootUrl, 'auth', 'v1', '/foo/bar'), desiredUrl);
     assert.equal(tcUrl.api(rootUrl + '/', 'auth', 'v1', '/foo/bar'), desiredUrl);
+  });
+
+  test('schemas', function() {
+    const desiredUrl = 'https://schemas.taskcluster.net/auth/v1/something.yml';
+    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1', 'something.yml'), desiredUrl);
+    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1', 'something.yml'), desiredUrl);
+    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1', 'something.yml'), desiredUrl);
+    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1', 'something.yml'), desiredUrl);
+  });
+
+  test('api References', function() {
+    const desiredUrl = 'https://references.taskcluster.net/auth/v1/api.json';
+    assert.equal(tcUrl.apiReference(rootUrl, 'auth', 'v1'), desiredUrl);
+    assert.equal(tcUrl.apiReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
+    assert.equal(tcUrl.apiReference(rootUrl, 'auth', 'v1'), desiredUrl);
+    assert.equal(tcUrl.apiReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
+  });
+
+  test('exchange References', function() {
+    const desiredUrl = 'https://references.taskcluster.net/auth/v1/exchanges.json';
+    assert.equal(tcUrl.exchangeReference(rootUrl, 'auth', 'v1'), desiredUrl);
+    assert.equal(tcUrl.exchangeReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
+    assert.equal(tcUrl.exchangeReference(rootUrl, 'auth', 'v1'), desiredUrl);
+    assert.equal(tcUrl.exchangeReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
   });
 
   test('ui', function() {

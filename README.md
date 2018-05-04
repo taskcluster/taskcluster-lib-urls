@@ -22,9 +22,26 @@ This is tested on and should run on any of node `{8, 10}`.
 Usage
 -----
 
+This package exports 3 methods:
+
+* `api(rootUrl, service, version, path)`
+* `schema(rootUrl, service, version, schema)`
+* `apiReference(rootUrl, service, version)`
+* `exchangeReference(rootUrl, service, version)`
+* `ui(rootUrl, path)`
+* `docs(rootUrl, path)`
+
+When the `rootUrl` is `https://taskcluster.net`, the generated urls will be to the Heroku cluster. Otherwise they will follow the
+[spec defined in this project](https://github.com/taskcluster/taskcluster-lib-urls/tree/master/docs/urls-spec.md).
+
 ```js
 const tcUrl = require('taskcluster-lib-url');
+tcUrl.api(rootUrl, 'auth', 'v1', 'foo/bar');
+tcUrl.schema(rootUrl, 'auth', 'v1', 'foo.yml');
+tcUrl.apiReference(rootUrl, 'auth', 'v1');
+tcUrl.exchangeReference(rootUrl, 'auth', 'v1');
 tcUrl.ui(rootUrl, 'foo/bar');
+tcUrl.docs(rootUrl, 'foo/bar');
 ```
 
 Testing

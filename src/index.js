@@ -26,6 +26,37 @@ exports.api = (rootUrl, service, version, path) => {
 };
 
 /**
+ * Generate url for the schemas of a Taskcluster service.
+ */
+exports.schema = (rootUrl, service, version, schema) => {
+  rootUrl = cleanRoot(rootUrl);
+  schema = cleanPath(schema);
+  return rootUrl === TASKCLUSTER_NET ?
+    `https://schemas.taskcluster.net/${service}/${version}/${schema}` :
+    `${rootUrl}/schemas/${service}/${version}/${schema}`;
+};
+
+/**
+ * Generate url for the api reference of a Taskcluster service.
+ */
+exports.apiReference = (rootUrl, service, version) => {
+  rootUrl = cleanRoot(rootUrl);
+  return rootUrl === TASKCLUSTER_NET ?
+    `https://references.taskcluster.net/${service}/${version}/api.json` :
+    `${rootUrl}/references/${service}/${version}/api.json`;
+};
+
+/**
+ * Generate url for the exchange reference of a Taskcluster service.
+ */
+exports.exchangeReference = (rootUrl, service, version) => {
+  rootUrl = cleanRoot(rootUrl);
+  return rootUrl === TASKCLUSTER_NET ?
+    `https://references.taskcluster.net/${service}/${version}/exchanges.json` :
+    `${rootUrl}/references/${service}/${version}/exchanges.json`;
+};
+
+/**
  * Generate url for Taskcluser UI.
  */
 exports.ui = (rootUrl, path) => {
