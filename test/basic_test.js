@@ -28,7 +28,7 @@ suite('redeployability', function() {
     assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1', 'something.yml'), desiredUrl);
   });
 
-  test('api References', function() {
+  test('api references', function() {
     const desiredUrl = `${rootUrl}/references/auth/v1/api.json`;
     assert.equal(tcUrl.apiReference(rootUrl, 'auth', 'v1'), desiredUrl);
     assert.equal(tcUrl.apiReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
@@ -36,7 +36,7 @@ suite('redeployability', function() {
     assert.equal(tcUrl.apiReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
   });
 
-  test('exchange References', function() {
+  test('exchange references', function() {
     const desiredUrl = `${rootUrl}/references/auth/v1/exchanges.json`;
     assert.equal(tcUrl.exchangeReference(rootUrl, 'auth', 'v1'), desiredUrl);
     assert.equal(tcUrl.exchangeReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
@@ -50,6 +50,10 @@ suite('redeployability', function() {
     assert.equal(tcUrl.ui(rootUrl + '/', 'foo/bar'), desiredUrl);
     assert.equal(tcUrl.ui(rootUrl, '/foo/bar'), desiredUrl);
     assert.equal(tcUrl.ui(rootUrl + '/', '/foo/bar'), desiredUrl);
+  });
+
+  test('test root url', function() {
+    assert.equal(tcUrl.testRootUrl(), 'https://tc-tests.localhost');
   });
 });
 
@@ -80,7 +84,7 @@ suite('heroku', function() {
     assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1', 'something.yml'), desiredUrl);
   });
 
-  test('api References', function() {
+  test('api references', function() {
     const desiredUrl = 'https://references.taskcluster.net/auth/v1/api.json';
     assert.equal(tcUrl.apiReference(rootUrl, 'auth', 'v1'), desiredUrl);
     assert.equal(tcUrl.apiReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
@@ -88,7 +92,7 @@ suite('heroku', function() {
     assert.equal(tcUrl.apiReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
   });
 
-  test('exchange References', function() {
+  test('exchange references', function() {
     const desiredUrl = 'https://references.taskcluster.net/auth/v1/exchanges.json';
     assert.equal(tcUrl.exchangeReference(rootUrl, 'auth', 'v1'), desiredUrl);
     assert.equal(tcUrl.exchangeReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
