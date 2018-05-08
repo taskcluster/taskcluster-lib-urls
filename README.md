@@ -65,6 +65,17 @@ urls.ui('foo/bar');
 urls.docs('foo/bar');
 ```
 
+If you would like, you can set this up via [taskcluster-lib-loader](https://github.com/taskcluster/taskcluster-lib-loader) as follows:
+
+```js
+{
+  tcUrls: {
+    require: ['cfg'],
+    setup: ({cfg}) => withRootUrl(cfg.rootURl),
+  },
+}
+```
+
 Testing
 -------
 
