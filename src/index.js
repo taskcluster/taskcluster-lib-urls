@@ -164,4 +164,12 @@ module.exports = {
   ui(rootUrl, path) {
     return withRootUrl(rootUrl).ui(path);
   },
+
+  /**
+   * Return the standardized taskcluster "testing" rootUrl.
+   * Useful for nock and such things.
+   */
+  testRootUrl() {
+    return 'https://tc-tests.localhost';
+  },
 };

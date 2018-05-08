@@ -31,10 +31,13 @@ root URL:
 * `exchangeReference(rootUrl, service, version)` -> `String`
 * `schema(rootUrl, service, version, schema)` -> `String`
 * `ui(rootUrl, path)` -> `String`
+* `testRootUrl()` -> `String`
 * `withRootUrl(rootUrl)` -> `Class` instance for above methods
 
 When the `rootUrl` is `https://taskcluster.net`, the generated URLs will be to the Heroku cluster. Otherwise they will follow the
 [spec defined in this project](https://github.com/taskcluster/taskcluster-lib-urls/tree/master/docs/urls-spec.md).
+
+`testRootUrl` is used to share a common `rootUrl` between various Taskcluster mocks in testing.
 
 ```js
 // Specifying root URL every time:
