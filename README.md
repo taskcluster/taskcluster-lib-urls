@@ -29,7 +29,7 @@ root URL:
 * `apiReference(rootUrl, service, version)` -> `String`
 * `docs(rootUrl, path)` -> `String`
 * `exchangeReference(rootUrl, service, version)` -> `String`
-* `schema(rootUrl, service, version, schema)` -> `String`
+* `schema(rootUrl, service, schema)` -> `String`
 * `ui(rootUrl, path)` -> `String`
 * `testRootUrl()` -> `String`
 * `withRootUrl(rootUrl)` -> `Class` instance for above methods
@@ -44,7 +44,7 @@ When the `rootUrl` is `https://taskcluster.net`, the generated URLs will be to t
 const tcUrl = require('taskcluster-lib-url');
 
 tcUrl.api(rootUrl, 'auth', 'v1', 'foo/bar');
-tcUrl.schema(rootUrl, 'auth', 'v1', 'foo.yml');
+tcUrl.schema(rootUrl, 'auth', 'v1/foo.yml'); // Note that schema names have versions in them
 tcUrl.apiReference(rootUrl, 'auth', 'v1');
 tcUrl.exchangeReference(rootUrl, 'auth', 'v1');
 tcUrl.ui(rootUrl, 'foo/bar');
@@ -58,7 +58,7 @@ const tcUrl = require('taskcluster-lib-url');
 const urls = tcUrl.withRoot(rootUrl);
 
 urls.api('auth', 'v1', 'foo/bar');
-urls.schema('auth', 'v1', 'foo.yml');
+urls.schema('auth', 'v1/foo.yml');
 urls.apiReference('auth', 'v1');
 urls.exchangeReference('auth', 'v1');
 urls.ui('foo/bar');

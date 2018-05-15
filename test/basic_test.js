@@ -22,10 +22,10 @@ suite('redeployability', function() {
 
   test('schemas', function() {
     const desiredUrl = `${rootUrl}/schemas/auth/v1/something.yml`;
-    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1', 'something.yml'), desiredUrl);
-    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1', 'something.yml'), desiredUrl);
-    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1', 'something.yml'), desiredUrl);
-    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1', 'something.yml'), desiredUrl);
+    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1/something.yml'), desiredUrl);
+    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1/something.yml'), desiredUrl);
+    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1/something.yml'), desiredUrl);
+    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1/something.yml'), desiredUrl);
   });
 
   test('api references', function() {
@@ -78,10 +78,10 @@ suite('heroku', function() {
 
   test('schemas', function() {
     const desiredUrl = 'https://schemas.taskcluster.net/auth/v1/something.yml';
-    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1', 'something.yml'), desiredUrl);
-    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1', 'something.yml'), desiredUrl);
-    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1', 'something.yml'), desiredUrl);
-    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1', 'something.yml'), desiredUrl);
+    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1/something.yml'), desiredUrl);
+    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1/something.yml'), desiredUrl);
+    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1/something.yml'), desiredUrl);
+    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1/something.yml'), desiredUrl);
   });
 
   test('api references', function() {
