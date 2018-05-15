@@ -9,8 +9,7 @@ const ROOT_URL = 'https://taskcluster.example.com';
 const OLD_ROOT_URL = 'https://taskcluster.net';
 
 suite('basic test', function() {
-  let testCases;
-  yaml.loadAll(fs.readFileSync(SPEC_FILE, {encoding: 'utf8'}), testCase => {
+  yaml.safeLoad(fs.readFileSync(SPEC_FILE, {encoding: 'utf8'})).specs.forEach(testCase => {
     const {type, expectedUrl, oldExpectedUrl, argSets} = testCase;
 
     test(expectedUrl, function() {
