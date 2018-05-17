@@ -41,21 +41,21 @@ When the `rootUrl` is `https://taskcluster.net`, the generated URLs will be to t
 
 ```js
 // Specifying root URL every time:
-const tcUrl = require('taskcluster-lib-url');
+const libUrls = require('taskcluster-lib-url');
 
-tcUrl.api(rootUrl, 'auth', 'v1', 'foo/bar');
-tcUrl.schema(rootUrl, 'auth', 'v1/foo.yml'); // Note that schema names have versions in them
-tcUrl.apiReference(rootUrl, 'auth', 'v1');
-tcUrl.exchangeReference(rootUrl, 'auth', 'v1');
-tcUrl.ui(rootUrl, 'foo/bar');
-tcUrl.docs(rootUrl, 'foo/bar');
+libUrls.api(rootUrl, 'auth', 'v1', 'foo/bar');
+libUrls.schema(rootUrl, 'auth', 'v1/foo.yml'); // Note that schema names have versions in them
+libUrls.apiReference(rootUrl, 'auth', 'v1');
+libUrls.exchangeReference(rootUrl, 'auth', 'v1');
+libUrls.ui(rootUrl, 'foo/bar');
+libUrls.docs(rootUrl, 'foo/bar');
 ```
 
 ```js
 // Specifying root URL in advance:
-const tcUrl = require('taskcluster-lib-url');
+const libUrls = require('taskcluster-lib-url');
 
-const urls = tcUrl.withRoot(rootUrl);
+const urls = libUrls.withRoot(rootUrl);
 
 urls.api('auth', 'v1', 'foo/bar');
 urls.schema('auth', 'v1/foo.yml');
@@ -69,7 +69,7 @@ If you would like, you can set this up via [taskcluster-lib-loader](https://gith
 
 ```js
 {
-  tcUrls: {
+  libUrlss: {
     require: ['cfg'],
     setup: ({cfg}) => withRootUrl(cfg.rootURl),
   },

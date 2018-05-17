@@ -36,7 +36,7 @@ class LegacyUrls {
 
   /**
    * Generate URL for the schemas of a Taskcluster service.
-   * The schema must have the version in its name i.e. "v1/whatever.json"
+   * The schema usually have the version in its name i.e. "v1/whatever.json"
    */
   schema(service, schema) {
     return `https://schemas.taskcluster.net/${service}/${cleanPath(schema)}`;
@@ -85,10 +85,10 @@ class Urls {
 
   /**
    * Generate URL for the schemas of a Taskcluster service.
-   * The schema must have the version in its name i.e. "v1/whatever.json"
+   * The schema usually have the version in its name i.e. "v1/whatever.json"
    */
   schema(service, schema) {
-    return `${this.rootUrl}/schemas/${service}/${schema}`;
+    return `${this.rootUrl}/schemas/${service}/${cleanPath(schema)}`;
   }
 
   /**

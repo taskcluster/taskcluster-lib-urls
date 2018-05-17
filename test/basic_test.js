@@ -1,110 +1,40 @@
+const fs = require('fs');
+const path = require('path');
 const assert = require('assert');
-const tcUrl = require('../');
+const yaml = require('js-yaml');
+const libUrls = require('../');
 
-suite('redeployability', function() {
-  const rootUrl = 'https://taskcluster.example.com';
+const SPEC_FILE = path.join(__dirname, '../specification.yml');
+const ROOT_URL = 'https://taskcluster.example.com';
+const OLD_ROOT_URL = 'https://taskcluster.net';
 
-  test('docs', function() {
-    const desiredUrl = `${rootUrl}/docs/foo/bar`;
-    assert.equal(tcUrl.docs(rootUrl, 'foo/bar'), desiredUrl);
-    assert.equal(tcUrl.docs(rootUrl + '/', 'foo/bar'), desiredUrl);
-    assert.equal(tcUrl.docs(rootUrl, '/foo/bar'), desiredUrl);
-    assert.equal(tcUrl.docs(rootUrl + '/', '/foo/bar'), desiredUrl);
-  });
+suite('basic test', function() {
+  let testCases;
+  yaml.loadAll(fs.readFileSync(SPEC_FILE, {encoding: 'utf8'}), testCase => {
+    const {type, expectedUrl, oldExpectedUrl, argSets} = testCase;
 
-  test('api', function() {
-    const desiredUrl = `${rootUrl}/api/auth/v1/foo/bar`;
-    assert.equal(tcUrl.api(rootUrl, 'auth', 'v1', 'foo/bar'), desiredUrl);
-    assert.equal(tcUrl.api(rootUrl + '/', 'auth', 'v1', 'foo/bar'), desiredUrl);
-    assert.equal(tcUrl.api(rootUrl, 'auth', 'v1', '/foo/bar'), desiredUrl);
-    assert.equal(tcUrl.api(rootUrl + '/', 'auth', 'v1', '/foo/bar'), desiredUrl);
-  });
+    test(expectedUrl, function() {
+      const w = libUrls.withRootUrl(ROOT_URL);
+      const ws = libUrls.withRootUrl(ROOT_URL + '/');
 
-  test('schemas', function() {
-    const desiredUrl = `${rootUrl}/schemas/auth/v1/something.yml`;
-    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1/something.yml'), desiredUrl);
-    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1/something.yml'), desiredUrl);
-    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1/something.yml'), desiredUrl);
-    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1/something.yml'), desiredUrl);
-  });
+      argSets.forEach(args => {
+        assert.equal(expectedUrl, libUrls[type](ROOT_URL, ...args));
+        assert.equal(expectedUrl, libUrls[type](ROOT_URL + '/', ...args));
+        assert.equal(expectedUrl, w[type](...args));
+        assert.equal(expectedUrl, ws[type](...args));
+      });
+    });
 
-  test('api references', function() {
-    const desiredUrl = `${rootUrl}/references/auth/v1/api.json`;
-    assert.equal(tcUrl.apiReference(rootUrl, 'auth', 'v1'), desiredUrl);
-    assert.equal(tcUrl.apiReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
-    assert.equal(tcUrl.apiReference(rootUrl, 'auth', 'v1'), desiredUrl);
-    assert.equal(tcUrl.apiReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
-  });
+    test(oldExpectedUrl, function() {
+      const w = libUrls.withRootUrl(OLD_ROOT_URL);
+      const ws = libUrls.withRootUrl(OLD_ROOT_URL + '/');
 
-  test('exchange references', function() {
-    const desiredUrl = `${rootUrl}/references/auth/v1/exchanges.json`;
-    assert.equal(tcUrl.exchangeReference(rootUrl, 'auth', 'v1'), desiredUrl);
-    assert.equal(tcUrl.exchangeReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
-    assert.equal(tcUrl.exchangeReference(rootUrl, 'auth', 'v1'), desiredUrl);
-    assert.equal(tcUrl.exchangeReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
-  });
-
-  test('ui', function() {
-    const desiredUrl = `${rootUrl}/foo/bar`;
-    assert.equal(tcUrl.ui(rootUrl, 'foo/bar'), desiredUrl);
-    assert.equal(tcUrl.ui(rootUrl + '/', 'foo/bar'), desiredUrl);
-    assert.equal(tcUrl.ui(rootUrl, '/foo/bar'), desiredUrl);
-    assert.equal(tcUrl.ui(rootUrl + '/', '/foo/bar'), desiredUrl);
-  });
-
-  test('test root url', function() {
-    assert.equal(tcUrl.testRootUrl(), 'https://tc-tests.localhost');
-  });
-});
-
-suite('heroku', function() {
-  const rootUrl = 'https://taskcluster.net';
-
-  test('docs', function() {
-    const desiredUrl = 'https://docs.taskcluster.net/foo/bar';
-    assert.equal(tcUrl.docs(rootUrl, 'foo/bar'), desiredUrl);
-    assert.equal(tcUrl.docs(rootUrl + '/', 'foo/bar'), desiredUrl);
-    assert.equal(tcUrl.docs(rootUrl, '/foo/bar'), desiredUrl);
-    assert.equal(tcUrl.docs(rootUrl + '/', '/foo/bar'), desiredUrl);
-  });
-
-  test('api', function() {
-    const desiredUrl = 'https://auth.taskcluster.net/v1/foo/bar';
-    assert.equal(tcUrl.api(rootUrl, 'auth', 'v1', 'foo/bar'), desiredUrl);
-    assert.equal(tcUrl.api(rootUrl + '/', 'auth', 'v1', 'foo/bar'), desiredUrl);
-    assert.equal(tcUrl.api(rootUrl, 'auth', 'v1', '/foo/bar'), desiredUrl);
-    assert.equal(tcUrl.api(rootUrl + '/', 'auth', 'v1', '/foo/bar'), desiredUrl);
-  });
-
-  test('schemas', function() {
-    const desiredUrl = 'https://schemas.taskcluster.net/auth/v1/something.yml';
-    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1/something.yml'), desiredUrl);
-    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1/something.yml'), desiredUrl);
-    assert.equal(tcUrl.schema(rootUrl, 'auth', 'v1/something.yml'), desiredUrl);
-    assert.equal(tcUrl.schema(rootUrl + '/', 'auth', 'v1/something.yml'), desiredUrl);
-  });
-
-  test('api references', function() {
-    const desiredUrl = 'https://references.taskcluster.net/auth/v1/api.json';
-    assert.equal(tcUrl.apiReference(rootUrl, 'auth', 'v1'), desiredUrl);
-    assert.equal(tcUrl.apiReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
-    assert.equal(tcUrl.apiReference(rootUrl, 'auth', 'v1'), desiredUrl);
-    assert.equal(tcUrl.apiReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
-  });
-
-  test('exchange references', function() {
-    const desiredUrl = 'https://references.taskcluster.net/auth/v1/exchanges.json';
-    assert.equal(tcUrl.exchangeReference(rootUrl, 'auth', 'v1'), desiredUrl);
-    assert.equal(tcUrl.exchangeReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
-    assert.equal(tcUrl.exchangeReference(rootUrl, 'auth', 'v1'), desiredUrl);
-    assert.equal(tcUrl.exchangeReference(rootUrl + '/', 'auth', 'v1'), desiredUrl);
-  });
-
-  test('ui', function() {
-    const desiredUrl = 'https://tools.taskcluster.net/foo/bar';
-    assert.equal(tcUrl.ui(rootUrl, 'foo/bar'), desiredUrl);
-    assert.equal(tcUrl.ui(rootUrl + '/', 'foo/bar'), desiredUrl);
-    assert.equal(tcUrl.ui(rootUrl, '/foo/bar'), desiredUrl);
-    assert.equal(tcUrl.ui(rootUrl + '/', '/foo/bar'), desiredUrl);
+      argSets.forEach(args => {
+        assert.equal(oldExpectedUrl, libUrls[type](OLD_ROOT_URL, ...args));
+        assert.equal(oldExpectedUrl, libUrls[type](OLD_ROOT_URL + '/', ...args));
+        assert.equal(oldExpectedUrl, w[type](...args));
+        assert.equal(oldExpectedUrl, ws[type](...args));
+      });
+    });
   });
 });
