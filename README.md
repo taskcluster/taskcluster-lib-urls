@@ -41,7 +41,7 @@ When the `rootUrl` is `https://taskcluster.net`, the generated URLs will be to t
 
 ```js
 // Specifying root URL every time:
-const libUrls = require('taskcluster-lib-url');
+const libUrls = require('taskcluster-lib-urls');
 
 libUrls.api(rootUrl, 'auth', 'v1', 'foo/bar');
 libUrls.schema(rootUrl, 'auth', 'v1/foo.yml'); // Note that schema names have versions in them
@@ -53,7 +53,7 @@ libUrls.docs(rootUrl, 'foo/bar');
 
 ```js
 // Specifying root URL in advance:
-const libUrls = require('taskcluster-lib-url');
+const libUrls = require('taskcluster-lib-urls');
 
 const urls = libUrls.withRoot(rootUrl);
 
