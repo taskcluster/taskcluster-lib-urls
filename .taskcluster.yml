@@ -91,3 +91,57 @@ tasks:
       description: Run library test suite - golang 1.10
       owner: '{{ event.head.user.email }}'
       source: '{{ event.head.repo.url }}'
+  - provisionerId: '{{ taskcluster.docker.provisionerId }}'
+    workerType: '{{ taskcluster.docker.workerType }}'
+    extra:
+      github:
+        events:
+          - pull_request.opened
+          - pull_request.synchronize
+          - pull_request.reopened
+          - push
+    payload:
+      maxRunTime: 3600
+      image: 'python:2.7'
+      command:
+        - /bin/bash
+        - '-c'
+        - >-
+          git clone {{event.head.repo.url}} repo &&
+          cd repo &&
+          git config advice.detachedHead false &&
+          git checkout {{event.head.sha}} &&
+          pip install tox &&
+          tox -e py27
+    metadata:
+      name: taskcluster-lib-urls python 2.7 test
+      description: Run library test suite - python2.7
+      owner: '{{ event.head.user.email }}'
+      source: '{{ event.head.repo.url }}'
+  - provisionerId: '{{ taskcluster.docker.provisionerId }}'
+    workerType: '{{ taskcluster.docker.workerType }}'
+    extra:
+      github:
+        events:
+          - pull_request.opened
+          - pull_request.synchronize
+          - pull_request.reopened
+          - push
+    payload:
+      maxRunTime: 3600
+      image: 'python:3.6'
+      command:
+        - /bin/bash
+        - '-c'
+        - >-
+          git clone {{event.head.repo.url}} repo &&
+          cd repo &&
+          git config advice.detachedHead false &&
+          git checkout {{event.head.sha}} &&
+          pip install tox &&
+          tox -e py36
+    metadata:
+      name: taskcluster-lib-urls python 3.6 test
+      description: Run library test suite - python3.6
+      owner: '{{ event.head.user.email }}'
+      source: '{{ event.head.repo.url }}'
