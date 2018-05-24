@@ -18,7 +18,7 @@ Requirements
 
 This is tested on and should run on any of Node.js `{8, 10}`.
 
-Usage
+JS Usage
 -----
 
 This package exports several methods for generating URLs conditionally based on
@@ -74,6 +74,20 @@ If you would like, you can set this up via [taskcluster-lib-loader](https://gith
     setup: ({cfg}) => withRootUrl(cfg.rootURl),
   },
 }
+```
+
+Go Usage
+--------
+
+The go package exports the following functions:
+
+```go
+func API(rootURL string, service string, version string, path string) string
+func APIReference(rootURL string, service string, version string) string
+func Docs(rootURL string, path string) string
+func ExchangeReference(rootURL string, service string, version string) string
+func Schema(rootURL string, service string, name string) string
+func UI(rootURL string, path string) string
 ```
 
 Testing

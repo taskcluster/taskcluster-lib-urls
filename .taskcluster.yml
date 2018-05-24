@@ -60,3 +60,34 @@ tasks:
       description: "Upload documentation for this project"
       owner: '{{ event.head.user.email }}'
       source: '{{ event.head.repo.url }}'
+  - provisionerId: '{{ taskcluster.docker.provisionerId }}'
+    workerType: '{{ taskcluster.docker.workerType }}'
+    extra:
+      github:
+        events:
+          - pull_request.opened
+          - pull_request.synchronize
+          - pull_request.reopened
+          - push
+    payload:
+      maxRunTime: 3600
+      image: 'golang:1.10'
+      command:
+        - /bin/bash
+        - '-c'
+        - >-
+          mkdir -p /go/src/github.com/taskcluster/taskcluster-lib-urls &&
+          cd /go/src/github.com/taskcluster/taskcluster-lib-urls &&
+          git clone {{event.head.repo.url}} . &&
+          git config advice.detachedHead false &&
+          git checkout {{event.head.sha}} &&
+          go get -v -d -t ./... &&
+          go test -v -race ./... &&
+          go get -u github.com/alecthomas/gometalinter &&
+          gometalinter --install &&
+          gometalinter
+    metadata:
+      name: taskcluster-lib-urls go test
+      description: Run library test suite - golang 1.10
+      owner: '{{ event.head.user.email }}'
+      source: '{{ event.head.repo.url }}'
