@@ -10,7 +10,7 @@ setup(
     name='taskcluster-urls',
     description='Standardized url generator for taskcluster resources.',
     long_description=open(os.path.join(os.path.dirname(__file__), 'README.md')).read(),
-    long_description_content_type="text/markdown",
+    long_description_content_type='text/markdown',
     url='https://github.com/taskcluster/taskcluster-lib-urls',
     version=version,
     packages=['taskcluster_urls'],
