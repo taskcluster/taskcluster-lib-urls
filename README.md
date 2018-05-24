@@ -90,6 +90,22 @@ func Schema(rootURL string, service string, name string) string
 func UI(rootURL string, path string) string
 ```
 
+Python Usage
+--------
+
+You can install the python client with `pip install taskcluster-urls`;
+
+```python
+import taskcluster_urls
+
+taskcluster_urls.api(root_url, 'auth', 'v1', 'foo/bar');
+taskcluster_urls.schema(root_url, 'auth', 'v1/foo.yml'); // Note that schema names have versions in them
+taskcluster_urls.api_reference(root_url, 'auth', 'v1');
+taskcluster_urls.exchange_reference(root_url, 'auth', 'v1');
+taskcluster_urls.ui(root_url, 'foo/bar');
+taskcluster_urls.docs(root_url, 'foo/bar');
+```
+
 Testing
 -------
 

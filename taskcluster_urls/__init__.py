@@ -9,7 +9,7 @@ def api(root_url, service, version, path):
     else:
         return '{}/api/{}/{}/{}'.format(root_url, service, version, path)
 
-def apiReference(root_url, service, version):
+def api_reference(root_url, service, version):
     """Generate URL for a Taskcluster api reference."""
     root_url = root_url.rstrip('/')
     if root_url == OLD_ROOT_URL:
@@ -26,7 +26,7 @@ def docs(root_url, path):
     else:
         return '{}/docs/{}'.format(root_url, path)
 
-def exchangeReference(root_url, service, version):
+def exchange_reference(root_url, service, version):
     """Generate URL for a Taskcluster exchange reference."""
     root_url = root_url.rstrip('/')
     if root_url == OLD_ROOT_URL:

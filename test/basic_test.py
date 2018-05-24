@@ -1,4 +1,5 @@
 import os
+import re
 
 import yaml
 
@@ -15,7 +16,7 @@ def pytest_generate_tests(metafunc):
         specs = yaml.load(f)['specs']
         metafunc.parametrize(
             ['func', 'args', 'expected_url', 'old_expected_url'],
-            [(getattr(t, s['type']),
+            [(getattr(t, re.sub('([A-Z]+)', r'_\1', s['type']).lower()),
                 a, s['expectedUrl'], s['oldExpectedUrl'])
                 for s in specs
                 for a in s['argSets']
