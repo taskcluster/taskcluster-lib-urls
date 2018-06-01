@@ -9,6 +9,8 @@ A simple library to generate URLs for various Taskcluster resources across our v
 This serves as both a simple shim for projects that use JavaScript but also is the reference implementation for
 how we define these paths.
 
+URLs are defined in the 'Taskcluster URL Format' document.
+
 Changelog
 ---------
 View the changelog on the [releases page](https://github.com/taskcluster/taskcluster-lib-urls/releases).
