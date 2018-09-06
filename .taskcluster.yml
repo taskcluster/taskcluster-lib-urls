@@ -24,7 +24,7 @@ tasks:
         - "-lc"
         - "git clone {{event.head.repo.url}} repo && cd repo && git checkout {{event.head.sha}} && yarn install && yarn test"
     metadata:
-      name: "taskcluster-lib-urls test"
+      name: "taskcluster-lib-urls node.js test"
       description: "Library for building taskcluster urls"
       owner: "{{ event.head.user.email }}"
       source: "{{ event.head.repo.url }}"
@@ -87,7 +87,7 @@ tasks:
           gometalinter --install &&
           gometalinter
     metadata:
-      name: taskcluster-lib-urls go test
+      name: "taskcluster-lib-urls go test"
       description: Run library test suite - golang 1.10
       owner: '{{ event.head.user.email }}'
       source: '{{ event.head.repo.url }}'
@@ -114,7 +114,7 @@ tasks:
           pip install tox &&
           tox -e py27
     metadata:
-      name: taskcluster-lib-urls python 2.7 test
+      name: "taskcluster-lib-urls python 2.7 test"
       description: Run library test suite - python2.7
       owner: '{{ event.head.user.email }}'
       source: '{{ event.head.repo.url }}'

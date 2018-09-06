@@ -51,3 +51,11 @@ def ui(root_url, path):
         return 'https://tools.taskcluster.net/{}'.format(path)
     else:
         return '{}/{}'.format(root_url, path)
+
+def services_manifest(root_url):
+    """Returns a URL for the service manifest of a taskcluster deployment."""
+    root_url = root_url.rstrip('/')
+    if root_url == OLD_ROOT_URL:
+        return 'https://references.taskcluster.net/manifest.json'
+    else:
+        return '{}/references/manifest.json'.format(root_url)

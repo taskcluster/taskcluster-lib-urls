@@ -70,3 +70,13 @@ func UI(rootURL string, path string) string {
 		return fmt.Sprintf("%s/%s", r, path)
 	}
 }
+
+// ServicesManifest returns a URL for the service manifest of a taskcluster deployment
+func ServicesManifest(rootURL string) string {
+	switch r := strings.TrimRight(rootURL, "/"); r {
+	case oldRootURL:
+		return "https://references.taskcluster.net/manifest.json"
+	default:
+		return fmt.Sprintf("%s/references/manifest.json", r)
+	}
+}
