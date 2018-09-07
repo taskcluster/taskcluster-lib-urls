@@ -124,6 +124,26 @@ Hacking
 New releases should be tested on Travis to allow for all supported versions of Node to be tested. Once satisfied that it works, new versions should be created with
 `yarn version` rather than by manually editing `package.json` and tags should be pushed to Github. Make sure to update [the changelog](https://github.com/taskcluster/taskcluster-lib-urls/releases)!
 
+## Releasing
+
+Make the Node release first, as Python's version depends on its `package.json`.  This follows the typical tag-and-push-to-publish approach:
+
+
+```sh
+$ npm version minor  # or patch, or major
+$ git push upstream
+```
+
+Once that's done, build the Python sdists (only possible by the [maintainers on pypi](https://pypi.org/project/taskcluster-urls/#files)):
+
+```sh
+rm -rf dist/*
+python setup.py sdist bdist_wheel
+python3 setup.py bdist_wheel
+pip install twine
+twine upload dist/*
+```
+
 License
 -------
 
