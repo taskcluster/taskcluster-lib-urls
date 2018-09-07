@@ -50,6 +50,13 @@ class LegacyUrls {
   ui(path) {
     return `https://tools.taskcluster.net/${cleanPath(path)}`;
   }
+
+  /**
+   * Returns a URL for the service manifest of a taskcluster deployment.
+   */
+  servicesManifest() {
+    return 'https://references.taskcluster.net/manifest.json';
+  }
 }
 
 class Urls {
@@ -99,6 +106,13 @@ class Urls {
    */
   ui(path) {
     return `${this.rootUrl}/${cleanPath(path)}`;
+  }
+
+  /**
+   * Returns a URL for the service manifest of a taskcluster deployment.
+   */
+  servicesManifest() {
+    return `${this.rootUrl}/references/manifest.json`;
   }
 }
 
@@ -166,6 +180,13 @@ module.exports = {
    */
   ui(rootUrl, path) {
     return withRootUrl(rootUrl).ui(path);
+  },
+
+  /**
+   * Returns a URL for the service manifest of a taskcluster deployment.
+   */
+  servicesManifest(rootUrl) {
+    return withRootUrl(rootUrl).servicesManifest();
   },
 
   /**

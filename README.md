@@ -33,6 +33,7 @@ root URL:
 * `exchangeReference(rootUrl, service, version)` -> `String`
 * `schema(rootUrl, service, schema)` -> `String`
 * `ui(rootUrl, path)` -> `String`
+* `servicesManifest(rootUrl)` -> `String`
 * `testRootUrl()` -> `String`
 * `withRootUrl(rootUrl)` -> `Class` instance for above methods
 
@@ -50,6 +51,7 @@ libUrls.schema(rootUrl, 'auth', 'v1/foo.yml'); // Note that schema names have ve
 libUrls.apiReference(rootUrl, 'auth', 'v1');
 libUrls.exchangeReference(rootUrl, 'auth', 'v1');
 libUrls.ui(rootUrl, 'foo/bar');
+libUrls.servicesManifest(rootUrl);
 libUrls.docs(rootUrl, 'foo/bar');
 ```
 
@@ -64,6 +66,7 @@ urls.schema('auth', 'v1/foo.yml');
 urls.apiReference('auth', 'v1');
 urls.exchangeReference('auth', 'v1');
 urls.ui('foo/bar');
+urls.servicesManifest();
 urls.docs('foo/bar');
 ```
 
@@ -90,6 +93,7 @@ func Docs(rootURL string, path string) string
 func ExchangeReference(rootURL string, service string, version string) string
 func Schema(rootURL string, service string, name string) string
 func UI(rootURL string, path string) string
+func ServicesManifest(rootURL string) string
 ```
 
 Python Usage
@@ -105,6 +109,7 @@ taskcluster_urls.schema(root_url, 'auth', 'v1/foo.yml') # Note that schema names
 taskcluster_urls.api_reference(root_url, 'auth', 'v1')
 taskcluster_urls.exchange_reference(root_url, 'auth', 'v1')
 taskcluster_urls.ui(root_url, 'foo/bar')
+taskcluster_urls.servicesManifest(root_url)
 taskcluster_urls.docs(root_url, 'foo/bar')
 ```
 
