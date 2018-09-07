@@ -1,6 +1,6 @@
 {
   "name": "taskcluster-lib-urls",
-  "version": "10.0.0",
+  "version": "10.1.0",
   "author": "Brian Stack <bstack@mozilla.com>",
   "description": "Build urls for taskcluster resources.",
   "license": "MPL-2.0",
