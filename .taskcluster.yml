@@ -48,12 +48,12 @@ tasks:
         - /bin/bash
         - '--login'
         - '-cx'
-        - >-
-          git clone {{event.head.repo.url}} repo &&
-          cd repo &&
-          git config advice.detachedHead false &&
-          git checkout {{event.head.sha}} &&
-          export DEBUG=* DOCS_PROJECT=taskcluster-lib-urls DOCS_TIER=libraries DOCS_FOLDER=docs DOCS_README=README.md &&
+        - |
+          git clone {{event.head.repo.url}} repo
+          cd repo
+          git config advice.detachedHead false
+          git checkout {{event.head.sha}}
+          export DEBUG=* DOCS_PROJECT=taskcluster-lib-urls DOCS_TIER=libraries DOCS_FOLDER=docs DOCS_README=README.md
           upload-project-docs
     metadata:
       name: "taskcluster-lib-urls docs upload"
@@ -75,16 +75,16 @@ tasks:
       command:
         - /bin/bash
         - '-c'
-        - >-
-          mkdir -p /go/src/github.com/taskcluster/taskcluster-lib-urls &&
-          cd /go/src/github.com/taskcluster/taskcluster-lib-urls &&
-          git clone {{event.head.repo.url}} . &&
-          git config advice.detachedHead false &&
-          git checkout {{event.head.sha}} &&
-          go get -v -d -t ./... &&
-          go test -v -race ./... &&
-          go get -u github.com/alecthomas/gometalinter &&
-          gometalinter --install &&
+        - |
+          mkdir -p /go/src/github.com/taskcluster/taskcluster-lib-urls
+          cd /go/src/github.com/taskcluster/taskcluster-lib-urls
+          git clone {{event.head.repo.url}} .
+          git config advice.detachedHead false
+          git checkout {{event.head.sha}}
+          go get -v -d -t ./...
+          go test -v -race ./...
+          go get -u github.com/alecthomas/gometalinter
+          gometalinter --install
           gometalinter
     metadata:
       name: "taskcluster-lib-urls go test"
@@ -102,16 +102,42 @@ tasks:
           - push
     payload:
       maxRunTime: 3600
+      image: 'maven'
+      command:
+        - /bin/bash
+        - '-c'
+        - |
+          git clone {{event.head.repo.url}} repo
+          cd repo
+          git config advice.detachedHead false
+          git checkout {{event.head.sha}}
+          mvn install
+    metadata:
+      name: taskcluster-lib-urls java test
+      description: Run library test suite - java
+      owner: '{{ event.head.user.email }}'
+      source: '{{ event.head.repo.url }}'
+  - provisionerId: '{{ taskcluster.docker.provisionerId }}'
+    workerType: '{{ taskcluster.docker.workerType }}'
+    extra:
+      github:
+        events:
+          - pull_request.opened
+          - pull_request.synchronize
+          - pull_request.reopened
+          - push
+    payload:
+      maxRunTime: 3600
       image: 'python:2.7'
       command:
         - /bin/bash
         - '-c'
-        - >-
-          git clone {{event.head.repo.url}} repo &&
-          cd repo &&
-          git config advice.detachedHead false &&
-          git checkout {{event.head.sha}} &&
-          pip install tox &&
+        - |
+          git clone {{event.head.repo.url}} repo
+          cd repo
+          git config advice.detachedHead false
+          git checkout {{event.head.sha}}
+          pip install tox
           tox -e py27
     metadata:
       name: "taskcluster-lib-urls python 2.7 test"
@@ -133,12 +159,12 @@ tasks:
       command:
         - /bin/bash
         - '-c'
-        - >-
-          git clone {{event.head.repo.url}} repo &&
-          cd repo &&
-          git config advice.detachedHead false &&
-          git checkout {{event.head.sha}} &&
-          pip install tox &&
+        - |
+          git clone {{event.head.repo.url}} repo
+          cd repo
+          git config advice.detachedHead false
+          git checkout {{event.head.sha}}
+          pip install tox
           tox -e py36
     metadata:
       name: taskcluster-lib-urls python 3.6 test
