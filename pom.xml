@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.mozilla.taskcluster</groupId>
   <artifactId>taskcluster-lib-urls</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <packaging>jar</packaging>
   <name>Taskcluster Lib URLs (java port)</name>
   <description>A simple library to generate URLs for various Taskcluster resources across our various deployment methods.</description>
