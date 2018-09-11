@@ -1,7 +1,5 @@
 # Taskcluster URL Building Library
 
-[![Build Status](https://travis-ci.org/taskcluster/taskcluster-lib-urls.svg?branch=master)](https://travis-ci.org/taskcluster/taskcluster-lib-urls)
-[![npm](https://img.shields.io/npm/v/taskcluster-lib-urls.svg?maxAge=2592000)](https://www.npmjs.com/package/taskcluster-lib-urls)
 [![License](https://img.shields.io/badge/license-MPL%202.0-orange.svg)](http://mozilla.org/MPL/2.0)
 
 A simple library to generate URLs for various Taskcluster resources across our various deployment methods.
@@ -21,7 +19,9 @@ Requirements
 This is tested on and should run on any of Node.js `{8, 10}`.
 
 JS Usage
------
+--------
+[![Node.js Build Status](https://travis-ci.org/taskcluster/taskcluster-lib-urls.svg?branch=master)](https://travis-ci.org/taskcluster/taskcluster-lib-urls)
+[![npm](https://img.shields.io/npm/v/taskcluster-lib-urls.svg?maxAge=2592000)](https://www.npmjs.com/package/taskcluster-lib-urls)
 
 This package exports several methods for generating URLs conditionally based on
 a root URL, as well as a few helper classes for generating URLs for a pre-determined
@@ -81,8 +81,18 @@ If you would like, you can set this up via [taskcluster-lib-loader](https://gith
 }
 ```
 
+Test with:
+
+```
+yarn install
+yarn test
+```
+
+
 Go Usage
 --------
+
+[![GoDoc](https://godoc.org/github.com/taskcluster/taskcluster-lib-urls?status.svg)](https://godoc.org/github.com/taskcluster/taskcluster-lib-urls)
 
 The go package exports the following functions:
 
@@ -96,8 +106,20 @@ func UI(rootURL string, path string) string
 func ServicesManifest(rootURL string) string
 ```
 
+Install with:
+
+```
+go install ./..
+```
+
+Test with:
+
+```
+go test -v ./...
+```
+
 Python Usage
---------
+------------
 
 You can install the python client with `pip install taskcluster-urls`;
 
@@ -113,21 +135,78 @@ taskcluster_urls.servicesManifest(root_url)
 taskcluster_urls.docs(root_url, 'foo/bar')
 ```
 
-Testing
--------
+Test with:
 
-`yarn install` and `yarn test`.
+```
+tox
+```
 
-Hacking
--------
+Java Usage
+----------
 
-New releases should be tested on Travis to allow for all supported versions of Node to be tested. Once satisfied that it works, new versions should be created with
-`yarn version` rather than by manually editing `package.json` and tags should be pushed to Github. Make sure to update [the changelog](https://github.com/taskcluster/taskcluster-lib-urls/releases)!
+[![JavaDoc](https://img.shields.io/badge/javadoc-reference-blue.svg)](http://taskcluster.github.io/taskcluster-lib-urls/apidocs)
 
-## Releasing
+In order to use this library from your maven project, simply include it as a project dependency:
+
+```
+<project>
+  ...
+  <dependencies>
+    ...
+    <dependency>
+      <groupId>org.mozilla.taskcluster</groupId>
+      <artifactId>taskcluster-lib-urls</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+  </dependencies>
+</project>
+```
+
+The taskcluster-lib-urls artifacts are now available from the [maven central repository](http://central.sonatype.org/):
+
+* [Search Results](http://search.maven.org/#search|gav|1|g%3A%22org.mozilla.taskcluster%22%20AND%20a%3A%22taskcluster-lib-urls%22)
+* [Directory Listing](https://repo1.maven.org/maven2/org/mozilla/taskcluster/taskcluster-lib-urls/)
+
+To use the library, do as follows:
+
+```java
+import org.mozilla.taskcluster.urls.*;
+
+...
+
+    URLProvider urlProvider = URLs.provider("https://mytaskcluster.acme.org");
+
+    String fooBarAPI        = urlProvider.api("auth", "v1", "foo/bar");
+    String fooSchema        = urlProvider.schema("auth", "v1/foo.yml"); // Note that schema names have versions in them
+    String authAPIRef       = urlProvider.apiReference("auth", "v1");
+    String authExchangesRef = urlProvider.exchangeReference("auth", "v1");
+    String uiFooBar         = urlProvider.ui("foo/bar");
+    String servicesManifest = urlProvider.servicesManifest();
+    String docsFooBar       = urlProvider.docs("foo/bar");
+
+...
+```
+
+Install with:
+
+```
+mvn install
+```
+
+Test with:
+
+```
+mvn test
+```
+
+
+Releasing
+---------
+
+New releases should be tested on Travis and Taskcluster to allow for all supported versions of various languages to be tested. Once satisfied that it works, new versions should be created with
+`npm version` rather than by manually editing `package.json` and tags should be pushed to Github. 
 
 Make the Node release first, as Python's version depends on its `package.json`.  This follows the typical tag-and-push-to-publish approach:
-
 
 ```sh
 $ npm version minor  # or patch, or major
@@ -143,6 +222,8 @@ python3 setup.py bdist_wheel
 pip install twine
 twine upload dist/*
 ```
+
+Make sure to update [the changelog](https://github.com/taskcluster/taskcluster-lib-urls/releases)!
 
 License
 -------
