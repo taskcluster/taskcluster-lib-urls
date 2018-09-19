@@ -11,10 +11,10 @@ import org.yaml.snakeyaml.Yaml;
 
 public class URLsTest {
 
-    private final static String[] oldRootURLs = new String[] { "https://taskcluster.net", "https://taskcluster.net/" };
+    private final static String[] oldRootURLs = new String[] { "https://taskcluster.net", "https://taskcluster.net//" };
 
     private final static String[] newRootURLs = new String[] { "https://taskcluster.example.com",
-            "https://taskcluster.example.com/" };
+            "https://taskcluster.example.com//" };
 
     /**
      * greenTick is an ANSI byte sequence to render a light green tick in a

@@ -25,7 +25,7 @@ def pytest_generate_tests(metafunc):
 
 
 def test_basic(func, args, expected_url, old_expected_url):
-    assert func(ROOT_URL + '/', *args) == expected_url
+    assert func(ROOT_URL + '//', *args) == expected_url
     assert func(ROOT_URL, *args) == expected_url
-    assert func(OLD_ROOT_URL + '/', *args) == old_expected_url
+    assert func(OLD_ROOT_URL + '//', *args) == old_expected_url
     assert func(OLD_ROOT_URL, *args) == old_expected_url

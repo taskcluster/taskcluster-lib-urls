@@ -14,11 +14,11 @@ suite('basic test', function() {
 
     test(expectedUrl, function() {
       const w = libUrls.withRootUrl(ROOT_URL);
-      const ws = libUrls.withRootUrl(ROOT_URL + '/');
+      const ws = libUrls.withRootUrl(ROOT_URL + '//');
 
       argSets.forEach(args => {
         assert.equal(expectedUrl, libUrls[type](ROOT_URL, ...args));
-        assert.equal(expectedUrl, libUrls[type](ROOT_URL + '/', ...args));
+        assert.equal(expectedUrl, libUrls[type](ROOT_URL + '//', ...args));
         assert.equal(expectedUrl, w[type](...args));
         assert.equal(expectedUrl, ws[type](...args));
       });
@@ -26,11 +26,11 @@ suite('basic test', function() {
 
     test(oldExpectedUrl, function() {
       const w = libUrls.withRootUrl(OLD_ROOT_URL);
-      const ws = libUrls.withRootUrl(OLD_ROOT_URL + '/');
+      const ws = libUrls.withRootUrl(OLD_ROOT_URL + '//');
 
       argSets.forEach(args => {
         assert.equal(oldExpectedUrl, libUrls[type](OLD_ROOT_URL, ...args));
-        assert.equal(oldExpectedUrl, libUrls[type](OLD_ROOT_URL + '/', ...args));
+        assert.equal(oldExpectedUrl, libUrls[type](OLD_ROOT_URL + '//', ...args));
         assert.equal(oldExpectedUrl, w[type](...args));
         assert.equal(oldExpectedUrl, ws[type](...args));
       });

@@ -17,13 +17,13 @@ specs:
   oldExpectedUrl: https://auth.taskcluster.net/v1/ping
   argSets:
   - [auth, v1, ping]
-  - [auth, v1, /ping]
+  - [auth, v1, //ping]
 - type: api
   expectedUrl: https://taskcluster.example.com/api/auth/v1/foo/ping
   oldExpectedUrl: https://auth.taskcluster.net/v1/foo/ping
   argSets:
   - [auth, v1, foo/ping]
-  - [auth, v1, /foo/ping]
+  - [auth, v1, //foo/ping]
 - type: docs
   expectedUrl: https://taskcluster.example.com/docs/something/in/docs
   oldExpectedUrl: https://docs.taskcluster.net/something/in/docs

@@ -67,7 +67,7 @@ func TestURLs(t *testing.T) {
 				t.Errorf("URL is not correct. Got %q wanted %q", result, test.ExpectedURL)
 				continue
 			}
-			result, err = testFunc(t, test.FunctionType, fmt.Sprintf("%s/", rootURL), argSet...)
+			result, err = testFunc(t, test.FunctionType, fmt.Sprintf("%s//", rootURL), argSet...)
 			if err != nil {
 				t.Error(err)
 			}
@@ -85,7 +85,7 @@ func TestURLs(t *testing.T) {
 			if result != test.OldExpectedURL {
 				t.Errorf("URL is not correct. Got %q wanted %q", result, test.OldExpectedURL)
 			}
-			result, err = testFunc(t, test.FunctionType, fmt.Sprintf("%s/", oldRootURL), argSet...)
+			result, err = testFunc(t, test.FunctionType, fmt.Sprintf("%s//", oldRootURL), argSet...)
 			if err != nil {
 				t.Error(err)
 			}
