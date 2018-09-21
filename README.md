@@ -40,7 +40,8 @@ root URL:
 When the `rootUrl` is `https://taskcluster.net`, the generated URLs will be to the Heroku cluster. Otherwise they will follow the
 [spec defined in this project](https://github.com/taskcluster/taskcluster-lib-urls/tree/master/docs/urls-spec.md).
 
-`testRootUrl` is used to share a common `rootUrl` between various Taskcluster mocks in testing.
+`testRootUrl()` is used to share a common fake `rootUrl` between various Taskcluster mocks in testing.
+The URL does not resolve.
 
 ```js
 // Specifying root URL every time:
@@ -133,6 +134,10 @@ taskcluster_urls.exchange_reference(root_url, 'auth', 'v1')
 taskcluster_urls.ui(root_url, 'foo/bar')
 taskcluster_urls.servicesManifest(root_url)
 taskcluster_urls.docs(root_url, 'foo/bar')
+
+And for testing,
+```python
+taskcluster_urls.test_root_url()
 ```
 
 Test with:
