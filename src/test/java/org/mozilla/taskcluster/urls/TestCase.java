@@ -1,11 +1,11 @@
 package org.mozilla.taskcluster.urls;
 
+import java.util.Map;
 import lombok.Data;
 
 @Data
 public class TestCase {
-    private String     type;
-    private String     expectedUrl;
-    private String     oldExpectedUrl;
-    private String[][] argSets;
+    private String              function;
+    private Map<String, String> expected;
+    private String[][]          argSets;
 }
