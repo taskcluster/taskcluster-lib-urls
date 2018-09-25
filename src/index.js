@@ -61,7 +61,6 @@ class LegacyUrls {
 
 class Urls {
   constructor(rootUrl) {
-    assert(rootUrl, 'no rootUrl provided');
     this.rootUrl = cleanRoot(rootUrl);
   }
 
