@@ -2,6 +2,7 @@ package tcurls
 
 import (
 	"io/ioutil"
+	"net/url"
 	"strings"
 	"testing"
 
@@ -20,27 +21,34 @@ type TestsSpecification struct {
 }
 
 func testFunc(t *testing.T, function string, expectedURL string, root string, args ...string) {
-	var actualURL string
+	rootURL, err := NewRootURL(root)
+	if err != nil {
+		t.Fatalf("%s", err)
+	}
+	var actualURL *url.URL
 	switch function {
 	case "api":
-		actualURL = API(root, args[0], args[1], args[2])
+		actualURL, err = rootURL.API(args[0], args[1], args[2])
 	case "apiReference":
-		actualURL = APIReference(root, args[0], args[1])
+		actualURL, err = rootURL.APIReference(args[0], args[1])
 	case "docs":
-		actualURL = Docs(root, args[0])
+		actualURL, err = rootURL.Docs(args[0])
 	case "exchangeReference":
-		actualURL = ExchangeReference(root, args[0], args[1])
+		actualURL, err = rootURL.ExchangeReference(args[0], args[1])
 	case "schema":
-		actualURL = Schema(root, args[0], args[1])
+		actualURL, err = rootURL.Schema(args[0], args[1])
 	case "ui":
-		actualURL = UI(root, args[0])
+		actualURL, err = rootURL.UI(args[0])
 	case "servicesManifest":
-		actualURL = ServicesManifest(root)
+		actualURL, err = rootURL.ServicesManifest()
 	default:
 		t.Errorf("Unknown function type: %s", function)
 		return
 	}
-	if expectedURL != actualURL {
+	if err != nil {
+		t.Fatalf("%s", err)
+	}
+	if expectedURL != actualURL.String() {
 		t.Errorf("%v %v(%v) = `%v` but should be `%v`", redCross(), function, quotedList(root, args), actualURL, expectedURL)
 		return
 	}
