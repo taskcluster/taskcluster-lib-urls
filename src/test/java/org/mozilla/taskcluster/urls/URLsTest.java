@@ -21,8 +21,8 @@ public class URLsTest {
 
     /**
      * testURLs iterates through the language-agnostic test cases defined in
-     * /specification.yml to ensure that the java implementation returns
-     * consistent results with the other language implementations.
+     * /tests.yml to ensure that the java implementation returns consistent
+     * results with the other language implementations.
      */
     @Test
     public void testURLs() throws Exception {
