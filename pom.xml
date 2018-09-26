@@ -153,7 +153,7 @@
       <testResource>
         <directory>.</directory>
         <includes>
-          <include>specification.yml</include>
+          <include>tests.yml</include>
         </includes>
       </testResource>
     </testResources>

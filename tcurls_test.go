@@ -1,7 +1,6 @@
 package tcurls
 
 import (
-	"fmt"
 	"io/ioutil"
 	"strings"
 	"testing"
@@ -9,102 +8,79 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-const rootURL = "https://taskcluster.example.com"
-
-type spec struct {
-	FunctionType   string     `yaml:"type"`
-	ExpectedURL    string     `yaml:"expectedUrl"`
-	OldExpectedURL string     `yaml:"oldExpectedUrl"`
-	ArgSets        [][]string `yaml:"argSets"`
+type TestCase struct {
+	Function string            `yaml:"function"`
+	Expected map[string]string `yaml:"expected"`
+	ArgSets  [][]string        `yaml:"argSets"`
 }
 
-type document struct {
-	Specs []spec `yaml:"specs"`
+type TestsSpecification struct {
+	RootURLs map[string][]string `yaml:"rootURLs"`
+	Tests    []TestCase          `yaml:"tests"`
 }
 
-func testFunc(t *testing.T, functionType string, root string, args ...string) (string, error) {
-	switch functionType {
+func testFunc(t *testing.T, function string, expectedURL string, root string, args ...string) {
+	var actualURL string
+	switch function {
 	case "api":
-		return API(root, args[0], args[1], args[2]), nil
+		actualURL = API(root, args[0], args[1], args[2])
 	case "apiReference":
-		return APIReference(root, args[0], args[1]), nil
+		actualURL = APIReference(root, args[0], args[1])
 	case "docs":
-		return Docs(root, args[0]), nil
+		actualURL = Docs(root, args[0])
 	case "exchangeReference":
-		return ExchangeReference(root, args[0], args[1]), nil
+		actualURL = ExchangeReference(root, args[0], args[1])
 	case "schema":
-		return Schema(root, args[0], args[1]), nil
+		actualURL = Schema(root, args[0], args[1])
 	case "ui":
-		return UI(root, args[0]), nil
+		actualURL = UI(root, args[0])
 	case "servicesManifest":
-		return ServicesManifest(root), nil
+		actualURL = ServicesManifest(root)
 	default:
-		return "", fmt.Errorf("Unknown function type: %s", functionType)
+		t.Errorf("Unknown function type: %s", function)
+		return
 	}
+	if expectedURL != actualURL {
+		t.Errorf("%v %v(%v) = `%v` but should be `%v`", redCross(), function, quotedList(root, args), actualURL, expectedURL)
+		return
+	}
+	t.Logf("%v %v(%v) = `%v`", greenTick(), function, quotedList(root, args), actualURL)
 }
 
 func TestURLs(t *testing.T) {
-	data, err := ioutil.ReadFile("specification.yml")
+	data, err := ioutil.ReadFile("tests.yml")
 	if err != nil {
 		t.Error(err)
 	}
-	var specs document
-	err = yaml.Unmarshal([]byte(data), &specs)
+	var spec TestsSpecification
+	err = yaml.Unmarshal([]byte(data), &spec)
 	if err != nil {
 		t.Error(err)
 	}
 
-	for _, test := range specs.Specs {
+	for _, test := range spec.Tests {
 		for _, argSet := range test.ArgSets {
-
-			// Test "new" URLs
-			result, err := testFunc(t, test.FunctionType, rootURL, argSet...)
-			if err != nil {
-				t.Error(err)
-				continue
+			for cluster, rootURLs := range spec.RootURLs {
+				for _, rootURL := range rootURLs {
+					testFunc(t, test.Function, test.Expected[cluster], rootURL, argSet...)
+				}
 			}
-			if result != test.ExpectedURL {
-				t.Errorf("URL is not correct. Got %q wanted %q", result, test.ExpectedURL)
-				continue
-			}
-			result, err = testFunc(t, test.FunctionType, fmt.Sprintf("%s/", rootURL), argSet...)
-			if err != nil {
-				t.Error(err)
-			}
-			if result != test.ExpectedURL {
-				t.Errorf("URL is not correct. Got %q wanted %q", result, test.ExpectedURL)
-				continue
-			}
-			t.Logf(`%v %v(%v) = %q`, greenTick(), test.FunctionType, quotedList(rootURL, argSet), result)
-
-			// Test "old" URLs
-			result, err = testFunc(t, test.FunctionType, oldRootURL, argSet...)
-			if err != nil {
-				t.Error(err)
-			}
-			if result != test.OldExpectedURL {
-				t.Errorf("URL is not correct. Got %q wanted %q", result, test.OldExpectedURL)
-			}
-			result, err = testFunc(t, test.FunctionType, fmt.Sprintf("%s/", oldRootURL), argSet...)
-			if err != nil {
-				t.Error(err)
-			}
-			if result != test.OldExpectedURL {
-				t.Errorf("URL is not correct. Got %q wanted %q", result, test.OldExpectedURL)
-			}
-			t.Logf(`%v %v(%v) = %q`, greenTick(), test.FunctionType, quotedList(oldRootURL, argSet), result)
 		}
 	}
 }
 
-// quotedList returns a quoted list of the arguments passed in
+// quotedList returns a backtick-quoted list of the arguments passed in
 func quotedList(url string, args []string) string {
 	all := append([]string{url}, args...)
-	return `'` + strings.Join(all, `', '`) + `'`
+	return "`" + strings.Join(all, "`, `") + "`"
 }
 
 // greenTick returns an ANSI string including escape codes to render a light
 // green tick (✓) in a color console
 func greenTick() string {
 	return string([]byte{0x1b, 0x5b, 0x33, 0x32, 0x6d, 0xe2, 0x9c, 0x93, 0x1b, 0x5b, 0x30, 0x6d})
+}
+
+func redCross() string {
+	return "❌"
 }

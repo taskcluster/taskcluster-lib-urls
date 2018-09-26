@@ -2,8 +2,8 @@ const assert = require('assert');
 
 const TASKCLUSTER_NET = 'https://taskcluster.net';
 
-const cleanRoot = rootUrl => rootUrl.replace(/\/$/, '');
-const cleanPath = path => path.replace(/^\//, '');
+const cleanRoot = rootUrl => rootUrl.replace(/\/*$/, '');
+const cleanPath = path => path.replace(/^\/*/, '');
 
 class LegacyUrls {
   /**
@@ -61,7 +61,6 @@ class LegacyUrls {
 
 class Urls {
   constructor(rootUrl) {
-    assert(rootUrl, 'no rootUrl provided');
     this.rootUrl = cleanRoot(rootUrl);
   }
 
