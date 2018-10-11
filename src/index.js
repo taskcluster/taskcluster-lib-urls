@@ -193,6 +193,6 @@ module.exports = {
    * Useful for nock and such things.
    */
   testRootUrl() {
-    return 'https://tc-tests.localhost';
+    return 'https://tc-tests.example.com';
   },
 };

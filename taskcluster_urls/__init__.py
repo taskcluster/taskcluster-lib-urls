@@ -59,3 +59,8 @@ def services_manifest(root_url):
         return 'https://references.taskcluster.net/manifest.json'
     else:
         return '{}/references/manifest.json'.format(root_url)
+
+def test_root_url():
+    """Returns a standardized "testing" rootUrl that does not resolve but
+    is easily recognizable in test failures."""
+    return 'https://tc-tests.example.com'
