@@ -30,6 +30,8 @@ public interface URLProvider {
 
     /**
      * Generate URL for Taskcluser UI.
+     *
+     * @param path - may or may not have an initial slash
      */
     public String ui(String path);
 
