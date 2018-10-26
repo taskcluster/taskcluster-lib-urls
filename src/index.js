@@ -176,6 +176,12 @@ module.exports = {
 
   /**
    * Generate URL for Taskcluser UI.
+   *
+   * @param rootUrl - string. Expected to be without a trailing slash
+   * @param path - string. The rest of the path to append to the rootUrl.
+   * Can start either with a slash or not.
+   *
+   * @returns string. The resulting url
    */
   ui(rootUrl, path) {
     return withRootUrl(rootUrl).ui(path);
