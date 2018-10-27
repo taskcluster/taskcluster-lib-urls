@@ -126,3 +126,21 @@ tests:
     new: https://taskcluster.example.com/references/manifest.json
     invalid: 12345/references/manifest.json
     empty: /references/manifest.json
+- function: taskInspector
+  argSets:
+  - [thisIsATaskGroupId]
+  expected:
+    old: https://tools.taskcluster.net/groups/thisIsATaskGroupId
+    new: https://taskcluster.example.com/groups/thisIsATaskGroupId
+    invalid: 12345/groups/thisIsATaskGroupId
+    empty: /groups/thisIsATaskGroupId
+- function: taskInspector
+  argSets:
+  - [thisIsATaskGroupId, thisIsATaskId]
+  expected:
+     old: https://tools.taskcluster.net/groups/thisIsATaskGroupId/tasks/thisIsATaskId/details
+     new: https://taskcluster.example.com/groups/thisIsATaskGroupId/tasks/thisIsATaskId/details
+     invalid: 12345/groups/thisIsATaskGroupId/tasks/thisIsATaskId/details
+     empty: /groups/thisIsATaskGroupId/tasks/thisIsATaskId/details
+
+

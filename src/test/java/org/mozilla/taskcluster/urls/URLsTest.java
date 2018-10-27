@@ -64,6 +64,9 @@ public class URLsTest {
             return urlProvider.ui(args[0]);
         case "servicesManifest":
             return urlProvider.servicesManifest();
+        case "taskInspector":
+            if (args.length == 1) return urlProvider.taskInspector(args[0]);
+            else return urlProvider.taskInspector(args[0], args[1]);
         default:
             throw new NoSuchMethodException("Unknown function type: " + function);
         }
