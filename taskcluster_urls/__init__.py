@@ -60,6 +60,15 @@ def services_manifest(root_url):
     else:
         return '{}/references/manifest.json'.format(root_url)
 
+def task_inspector(root_url, task_group, task_id = ''):
+    """Returns a link to the task group or the task in Task Inspector."""
+    root_url = root_url.rstrip('/')
+    task_details = '/tasks/{}/details'.format(task_id) if task_id else ''
+    if root_url == OLD_ROOT_URL:
+        return 'https://tools.taskcluster.net/groups/{}{}'.format(task_group, task_details)
+    else:
+        return '{}/groups/{}{}'.format(root_url, task_group, task_details)
+
 def test_root_url():
     """Returns a standardized "testing" rootUrl that does not resolve but
     is easily recognizable in test failures."""
