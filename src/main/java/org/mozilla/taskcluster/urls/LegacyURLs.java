@@ -8,6 +8,7 @@ public class LegacyURLs implements URLProvider {
     /**
      * Generate URL for path in a Taskcluster service.
      */
+    @Override
     public String api(String service, String version, String path) {
         return "https://" + service + ".taskcluster.net/" + version + "/" + Clean.path(path);
     }
@@ -15,6 +16,7 @@ public class LegacyURLs implements URLProvider {
     /**
      * Generate URL for the api reference of a Taskcluster service.
      */
+    @Override
     public String apiReference(String service, String version) {
         return "https://references.taskcluster.net/" + service + "/" + version + "/api.json";
     }
@@ -22,6 +24,7 @@ public class LegacyURLs implements URLProvider {
     /**
      * Generate URL for path in the Taskcluster docs website.
      */
+    @Override
     public String docs(String path) {
         return "https://docs.taskcluster.net/" + Clean.path(path);
     }
@@ -29,6 +32,7 @@ public class LegacyURLs implements URLProvider {
     /**
      * Generate URL for the exchange reference of a Taskcluster service.
      */
+    @Override
     public String exchangeReference(String service, String version) {
         return "https://references.taskcluster.net/" + service + "/" + version + "/exchanges.json";
     }
@@ -37,6 +41,7 @@ public class LegacyURLs implements URLProvider {
      * Generate URL for the schemas of a Taskcluster service.
      * The schema usually have the version in its name i.e. "v1/whatever.json"
      */
+    @Override
     public String schema(String service, String schema) {
         return "https://schemas.taskcluster.net/" + service + "/" + Clean.path(schema);
     }
@@ -44,6 +49,7 @@ public class LegacyURLs implements URLProvider {
     /**
      * Generate URL for Taskcluser UI.
      */
+    @Override
     public String ui(String path) {
         return "https://tools.taskcluster.net/" + Clean.path(path);
     }
@@ -51,6 +57,7 @@ public class LegacyURLs implements URLProvider {
     /**
      * Returns a URL for the service manifest of a taskcluster deployment.
      */
+    @Override
     public String servicesManifest() {
         return "https://references.taskcluster.net/manifest.json";
     }
@@ -58,6 +65,7 @@ public class LegacyURLs implements URLProvider {
     /**
      * Returns a link to the task group in Task Inspector
      */
+    @Override
     public String taskInspector(String taskGroupId) {
         return "https://tools.taskcluster.net/groups/" + taskGroupId;
     }
@@ -65,6 +73,7 @@ public class LegacyURLs implements URLProvider {
     /**
      * Returns a link to the task in Task Inspector
      */
+    @Override
     public String taskInspector(String taskGroupId, String taskId) {
         return "https://tools.taskcluster.net/groups/" + taskGroupId + "/tasks/" + taskId + "/details";
     }
