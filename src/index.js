@@ -57,6 +57,14 @@ class LegacyUrls {
   servicesManifest() {
     return 'https://references.taskcluster.net/manifest.json';
   }
+
+  /**
+   * Returns a link to the task group or the task in Task Inspector
+   */
+  taskInspector(taskGroupId, taskId) {
+    let taskDetails = taskId ? `/tasks/${taskId}/details` : '';
+    return 'https://tools.taskcluster.net/groups/' + taskGroupId + taskDetails;
+  }
 }
 
 class Urls {
@@ -112,6 +120,14 @@ class Urls {
    */
   servicesManifest() {
     return `${this.rootUrl}/references/manifest.json`;
+  }
+
+  /**
+   * Returns a link to the task group or the task in Task Inspector
+   */
+  taskInspector(taskGroupId, taskId) {
+    let taskDetails = taskId ? `/tasks/${taskId}/details` : '';
+    return `${this.rootUrl}/groups/${taskGroupId}${taskDetails}`;
   }
 }
 
@@ -186,6 +202,20 @@ module.exports = {
    */
   servicesManifest(rootUrl) {
     return withRootUrl(rootUrl).servicesManifest();
+  },
+
+  /**
+   * Method for generating links to task group or a task in Task Inspector
+   *
+   * @param rootUrl - string; rootUrl of the Taskcluster deployment,
+   *                  expected to be without a trailing slash
+   * @param taskGroupId - string
+   * @param taskId - string. Optional
+   *
+   * @returns string. URL to the task group (or the task if that parameter was also given) in Task Inspector
+   */
+  taskInspector(rootUrl, taskGroupId, taskId) {
+    return withRootUrl(rootUrl).taskInspector(taskGroupId, taskId);
   },
 
   /**
