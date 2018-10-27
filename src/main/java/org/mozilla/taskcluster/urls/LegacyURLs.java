@@ -54,4 +54,18 @@ public class LegacyURLs implements URLProvider {
     public String servicesManifest() {
         return "https://references.taskcluster.net/manifest.json";
     }
+
+    /**
+     * Returns a link to the task group in Task Inspector
+     */
+    public String taskInspector(String taskGroupId) {
+        return "https://tools.taskcluster.net/groups/" + taskGroupId;
+    }
+
+    /**
+     * Returns a link to the task in Task Inspector
+     */
+    public String taskInspector(String taskGroupId, String taskId) {
+        return "https://tools.taskcluster.net/groups/" + taskGroupId + "/tasks/" + taskId + "/details";
+    }
 }

@@ -60,4 +60,18 @@ public class NewURLs implements URLProvider {
     public String servicesManifest() {
         return this.rootURL + "/references/manifest.json";
     }
+
+    /**
+     * Returns a link to the task group in Task Inspector
+     */
+    public String taskInspector(String taskGroupId) {
+        return this.rootURL + "/groups/" + taskGroupId;
+    }
+
+    /**
+     * Returns a link to the task in Task Inspector
+     */
+    public String taskInspector(String taskGroupId, String taskId) {
+        return this.rootURL + "/groups/" + taskGroupId + "/tasks/" + taskId + "/details";
+    }
 }

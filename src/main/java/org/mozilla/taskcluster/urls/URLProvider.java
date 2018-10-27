@@ -37,4 +37,14 @@ public interface URLProvider {
      * Returns a URL for the service manifest of a taskcluster deployment.
      */
     public String servicesManifest();
+
+    /**
+     * Returns a link to the task group in Task Inspector
+     */
+    public String taskInspector(String taskGroupId);
+
+    /**
+     * Returns a link to the task in Task Inspector
+     */
+    public String taskInspector(String taskGroupId, String taskId);
 }
