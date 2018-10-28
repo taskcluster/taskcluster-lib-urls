@@ -36,6 +36,12 @@ func testFunc(t *testing.T, function string, expectedURL string, root string, ar
 		actualURL = UI(root, args[0])
 	case "servicesManifest":
 		actualURL = ServicesManifest(root)
+	case "taskInspector":
+		if len(args) == 1 {
+			actualURL = TaskInspector(root, args[0])
+		} else {
+			actualURL = TaskInspector(root, args[0], args[1])
+		}
 	default:
 		t.Errorf("Unknown function type: %s", function)
 		return

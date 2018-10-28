@@ -81,13 +81,13 @@ func ServicesManifest(rootURL string) string {
 	}
 }
 
-// Returns a link to the task group or the task in Task Inspector
+// TaskInspector returns a link to the task group or the task in Task Inspector
 func TaskInspector(rootURL string, ids ...string) string {
-	taskGroupId := ids[0]
+	taskGroupID := ids[0]
 	var taskDetails string
 	if len(ids) > 1 {
-		taskId := ids[1]
-		taskDetails = fmt.Sprintf("/tasks/%s/details", taskId)
+		taskID := ids[1]
+		taskDetails = fmt.Sprintf("/tasks/%s/details", taskID)
 	} else {
 		taskDetails = ""
 	}
@@ -95,6 +95,6 @@ func TaskInspector(rootURL string, ids ...string) string {
 	case oldRootURL:
 		return "https://references.taskcluster.net/manifest.json"
 	default:
-		return fmt.Sprintf("%s/groups/%s%s", r, taskGroupId, taskDetails)
+		return fmt.Sprintf("%s/groups/%s%s", r, taskGroupID, taskDetails)
 	}
 }
