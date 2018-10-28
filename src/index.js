@@ -62,7 +62,7 @@ class LegacyUrls {
    * Returns a link to the task group or the task in Task Inspector
    */
   taskInspector(taskGroupId, taskId) {
-    let taskDetails = taskId ? `/tasks/${taskId}/details` : '';
+    let taskDetails = taskId ? `/tasks/${taskId}/runs/0/logs/public/logs/live.log` : '';
     return 'https://tools.taskcluster.net/groups/' + taskGroupId + taskDetails;
   }
 }
@@ -126,8 +126,8 @@ class Urls {
    * Returns a link to the task group or the task in Task Inspector
    */
   taskInspector(taskGroupId, taskId) {
-    let taskDetails = taskId ? `/tasks/${taskId}/details` : '';
-    return `${this.rootUrl}/groups/${taskGroupId}${taskDetails}`;
+    let taskLog = taskId ? `/tasks/${taskId}/runs/0/logs/public/logs/live.log` : '';
+    return `${this.rootUrl}/groups/${taskGroupId}${taskLog}`;
   }
 }
 

@@ -138,9 +138,9 @@ tests:
   argSets:
   - [thisIsATaskGroupId, thisIsATaskId]
   expected:
-     old: https://tools.taskcluster.net/groups/thisIsATaskGroupId/tasks/thisIsATaskId/details
-     new: https://taskcluster.example.com/groups/thisIsATaskGroupId/tasks/thisIsATaskId/details
-     invalid: 12345/groups/thisIsATaskGroupId/tasks/thisIsATaskId/details
-     empty: /groups/thisIsATaskGroupId/tasks/thisIsATaskId/details
+     old: https://tools.taskcluster.net/groups/thisIsATaskGroupId/tasks/thisIsATaskId/runs/0/logs/public/logs/live.log
+     new: https://taskcluster.example.com/groups/thisIsATaskGroupId/tasks/thisIsATaskId/runs/0/logs/public/logs/live.log
+     invalid: 12345/groups/thisIsATaskGroupId/tasks/thisIsATaskId/runs/0/logs/public/logs/live.log
+     empty: /groups/thisIsATaskGroupId/tasks/thisIsATaskId/runs/0/logs/public/logs/live.log
 
 

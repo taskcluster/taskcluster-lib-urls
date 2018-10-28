@@ -63,11 +63,11 @@ def services_manifest(root_url):
 def task_inspector(root_url, task_group, task_id = ''):
     """Returns a link to the task group or the task in Task Inspector."""
     root_url = root_url.rstrip('/')
-    task_details = '/tasks/{}/details'.format(task_id) if task_id else ''
+    task_logs = '/tasks/{}/runs/0/logs/public/logs/live.log'.format(task_id) if task_id else ''
     if root_url == OLD_ROOT_URL:
-        return 'https://tools.taskcluster.net/groups/{}{}'.format(task_group, task_details)
+        return 'https://tools.taskcluster.net/groups/{}{}'.format(task_group, task_logs)
     else:
-        return '{}/groups/{}{}'.format(root_url, task_group, task_details)
+        return '{}/groups/{}{}'.format(root_url, task_group, task_logs)
 
 def test_root_url():
     """Returns a standardized "testing" rootUrl that does not resolve but

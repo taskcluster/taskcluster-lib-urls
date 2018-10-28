@@ -81,6 +81,6 @@ public class NewURLs implements URLProvider {
      */
     @Override
     public String taskInspector(String taskGroupId, String taskId) {
-        return this.rootURL + "/groups/" + taskGroupId + "/tasks/" + taskId + "/details";
+        return this.rootURL + "/groups/" + taskGroupId + "/tasks/" + taskId + "/runs/0/logs/public/logs/live.log";
     }
 }

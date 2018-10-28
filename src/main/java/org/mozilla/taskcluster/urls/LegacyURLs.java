@@ -75,6 +75,6 @@ public class LegacyURLs implements URLProvider {
      */
     @Override
     public String taskInspector(String taskGroupId, String taskId) {
-        return "https://tools.taskcluster.net/groups/" + taskGroupId + "/tasks/" + taskId + "/details";
+        return "https://tools.taskcluster.net/groups/" + taskGroupId + "/tasks/" + taskId + "/runs/0/logs/public/logs/live.log";
     }
 }
