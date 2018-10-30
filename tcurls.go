@@ -61,6 +61,12 @@ func Schema(rootURL string, service string, name string) string {
 }
 
 // UI generates a url for a page in taskcluster tools site
+// The purpose of the function is to switch on rootUrl:
+// "The driver for having a ui method is so we can just call ui with a path and any root url,
+// and the returned url should work for both our current deployment (with root URL = https://taskcluster.net)
+// and any future deployment. The returned value is essentially rootURL == 'https://taskcluster.net'
+// ? 'https://tools.taskcluster.net/${path}'
+// : '${rootURL}/${path}' "
 func UI(rootURL string, path string) string {
 	path = strings.TrimLeft(path, "/")
 	switch r := strings.TrimRight(rootURL, "/"); r {
