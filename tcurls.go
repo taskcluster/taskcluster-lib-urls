@@ -91,10 +91,6 @@ func TaskInspector(rootURL string, ids ...string) string {
 	} else {
 		taskLogs = ""
 	}
-	switch r := strings.TrimRight(rootURL, "/"); r {
-	case oldRootURL:
-		return "https://references.taskcluster.net/manifest.json"
-	default:
-		return fmt.Sprintf("%s/groups/%s%s", r, taskGroupID, taskLogs)
-	}
+	urlSecondPart := fmt.Sprintf("groups/%s%s", taskGroupID, taskLogs)
+	return UI(rootURL, urlSecondPart)
 }

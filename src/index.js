@@ -63,7 +63,7 @@ class LegacyUrls {
    */
   taskInspector(taskGroupId, taskId) {
     let taskDetails = taskId ? `/tasks/${taskId}/runs/0/logs/public/logs/live.log` : '';
-    return 'https://tools.taskcluster.net/groups/' + taskGroupId + taskDetails;
+    return this.ui(`groups/${taskGroupId}${taskDetails}`);
   }
 }
 
