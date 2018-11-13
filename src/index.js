@@ -175,7 +175,18 @@ module.exports = {
   },
 
   /**
-   * Generate URL for Taskcluser UI.
+   * Generate URL for Taskcluser UI. The purpose of the function is to switch on rootUrl:
+   * "The driver for having a ui method is so we can just call ui with a path and any root url, 
+   *  and the returned url should work for both our current deployment (with root URL = https://taskcluster.net) 
+   *  and any future deployment. The returned value is essentially rootURL == 'https://taskcluster.net' 
+   *  ? 'https://tools.taskcluster.net/${path}' 
+   *  : '${rootURL}/${path}'. "
+   *
+   * @param rootUrl - string. Expected to be without a trailing slash
+   * @param path - string. The rest of the path to append to the rootUrl.
+   * Can start either with a slash or not.
+   *
+   * @returns string. The resulting url
    */
   ui(rootUrl, path) {
     return withRootUrl(rootUrl).ui(path);

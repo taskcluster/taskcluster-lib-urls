@@ -44,7 +44,15 @@ def schema(root_url, service, name):
         return '{}/schemas/{}/{}'.format(root_url, service, name)
 
 def ui(root_url, path):
-    """Generate URL for a path in the Taskcluster ui."""
+    """
+    Generate URL for a path in the Taskcluster ui.
+    The purpose of the function is to switch on rootUrl:
+    "The driver for having a ui method is so we can just call ui with a path and any root url,
+    and the returned url should work for both our current deployment (with root URL = https://taskcluster.net)
+    and any future deployment. The returned value is essentially rootURL == 'https://taskcluster.net'
+    'https://tools.taskcluster.net/${path}'
+    '${rootURL}/${path}' "
+    """
     root_url = root_url.rstrip('/')
     path = path.lstrip('/')
     if root_url == OLD_ROOT_URL:

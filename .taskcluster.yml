@@ -111,7 +111,7 @@ tasks:
           cd repo
           git config advice.detachedHead false
           git checkout {{event.head.sha}}
-          mvn install
+          mvn -X -e install
     metadata:
       name: taskcluster-lib-urls java test
       description: Run library test suite - java
