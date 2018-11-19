@@ -34,8 +34,8 @@ func testFunc(t *testing.T, function string, expectedURL string, root string, ar
 		actualURL = Schema(root, args[0], args[1])
 	case "ui":
 		actualURL = UI(root, args[0])
-	case "servicesManifest":
-		actualURL = ServicesManifest(root)
+	case "apiManifest":
+		actualURL = APIManifest(root)
 	default:
 		t.Errorf("Unknown function type: %s", function)
 		return

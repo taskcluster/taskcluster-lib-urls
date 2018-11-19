@@ -62,8 +62,8 @@ public class URLsTest {
             return urlProvider.schema(args[0], args[1]);
         case "ui":
             return urlProvider.ui(args[0]);
-        case "servicesManifest":
-            return urlProvider.servicesManifest();
+        case "apiManifest":
+            return urlProvider.apiManifest();
         default:
             throw new NoSuchMethodException("Unknown function type: " + function);
         }

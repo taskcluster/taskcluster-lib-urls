@@ -54,7 +54,7 @@ class LegacyUrls {
   /**
    * Returns a URL for the service manifest of a taskcluster deployment.
    */
-  servicesManifest() {
+  apiManifest() {
     return 'https://references.taskcluster.net/manifest.json';
   }
 }
@@ -110,7 +110,7 @@ class Urls {
   /**
    * Returns a URL for the service manifest of a taskcluster deployment.
    */
-  servicesManifest() {
+  apiManifest() {
     return `${this.rootUrl}/references/manifest.json`;
   }
 }
@@ -195,8 +195,8 @@ module.exports = {
   /**
    * Returns a URL for the service manifest of a taskcluster deployment.
    */
-  servicesManifest(rootUrl) {
-    return withRootUrl(rootUrl).servicesManifest();
+  apiManifest(rootUrl) {
+    return withRootUrl(rootUrl).apiManifest();
   },
 
   /**

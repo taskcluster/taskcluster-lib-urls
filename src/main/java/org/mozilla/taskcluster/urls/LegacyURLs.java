@@ -51,7 +51,7 @@ public class LegacyURLs implements URLProvider {
     /**
      * Returns a URL for the service manifest of a taskcluster deployment.
      */
-    public String servicesManifest() {
+    public String apiManifest() {
         return "https://references.taskcluster.net/manifest.json";
     }
 }

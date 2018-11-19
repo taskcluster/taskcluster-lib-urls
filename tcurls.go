@@ -77,8 +77,8 @@ func UI(rootURL string, path string) string {
 	}
 }
 
-// ServicesManifest returns a URL for the service manifest of a taskcluster deployment
-func ServicesManifest(rootURL string) string {
+// APIManifest returns a URL for the service manifest of a taskcluster deployment
+func APIManifest(rootURL string) string {
 	switch r := strings.TrimRight(rootURL, "/"); r {
 	case oldRootURL:
 		return "https://references.taskcluster.net/manifest.json"

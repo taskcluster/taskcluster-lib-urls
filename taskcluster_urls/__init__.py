@@ -60,8 +60,8 @@ def ui(root_url, path):
     else:
         return '{}/{}'.format(root_url, path)
 
-def services_manifest(root_url):
-    """Returns a URL for the service manifest of a taskcluster deployment."""
+def api_manifest(root_url):
+    """Returns a URL for the API manifest of a taskcluster deployment."""
     root_url = root_url.rstrip('/')
     if root_url == OLD_ROOT_URL:
         return 'https://references.taskcluster.net/manifest.json'

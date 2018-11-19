@@ -118,7 +118,7 @@ tests:
     new: https://taskcluster.example.com/
     invalid: 12345/
     empty: /
-- function: servicesManifest
+- function: apiManifest
   argSets:
   - []
   expected:

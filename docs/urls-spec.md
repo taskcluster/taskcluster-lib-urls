@@ -25,7 +25,7 @@ Taskcluster uses URLs with the following pattern:
 | exchangeReference(rootUrl, service, version) | `<rootUrl>/references/<service>/<version>/exchanges.json` |
 | schema(rootUrl, service, schema) | `<rootUrl>/schemas/<service>/<schema>` |
 | ui(rootUrl, path) | `<rootUrl>/<path>` |
-| servicesManifest(rootUrl) | `<rootUrl>/references/manifest.json` |
+| apiManifest(rootUrl) | `<rootUrl>/references/manifest.json` |
 
 *NOTE*: you should *always* use this library to generate URLs, rather than
 hard-coding any of the above patterns.
