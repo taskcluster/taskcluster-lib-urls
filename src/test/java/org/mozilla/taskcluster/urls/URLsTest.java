@@ -60,6 +60,14 @@ public class URLsTest {
             return urlProvider.exchangeReference(args[0], args[1]);
         case "schema":
             return urlProvider.schema(args[0], args[1]);
+        case "apiReferenceSchema":
+            return urlProvider.apiReferenceSchema(args[0]);
+        case "exchangesReferenceSchema":
+            return urlProvider.exchangesReferenceSchema(args[0]);
+        case "apiManifestSchema":
+            return urlProvider.apiManifestSchema(args[0]);
+        case "metadataMetaschema":
+            return urlProvider.metadataMetaschema();
         case "ui":
             return urlProvider.ui(args[0]);
         case "apiManifest":

@@ -24,6 +24,10 @@ Taskcluster uses URLs with the following pattern:
 | docs(rootUrl, path) | `<rootUrl>/docs/<path>` |
 | exchangeReference(rootUrl, service, version) | `<rootUrl>/references/<service>/<version>/exchanges.json` |
 | schema(rootUrl, service, schema) | `<rootUrl>/schemas/<service>/<schema>` |
+| apiSchema(rootUrl, version) | `<rootUrl>/schemas/common/api-reference-<version>.json` |
+| exchangesSchema(rootUrl, version) | `<rootUrl>/schemas/common/exchanges-reference-<version>.json` |
+| apiManifestSchema(rootUrl, version) | `<rootUrl>/schemas/common/manifest-<version>.json` |
+| metadataMchema(rootUrl) | `<rootUrl>/schemas/common/metadata-metaschema.json` |
 | ui(rootUrl, path) | `<rootUrl>/<path>` |
 | apiManifest(rootUrl) | `<rootUrl>/references/manifest.json` |
 

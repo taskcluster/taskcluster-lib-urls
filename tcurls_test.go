@@ -32,6 +32,14 @@ func testFunc(t *testing.T, function string, expectedURL string, root string, ar
 		actualURL = ExchangeReference(root, args[0], args[1])
 	case "schema":
 		actualURL = Schema(root, args[0], args[1])
+	case "apiReferenceSchema":
+		actualURL = APIReferenceSchema(root, args[0])
+	case "exchangesReferenceSchema":
+		actualURL = ExchangesReferenceSchema(root, args[0])
+	case "apiManifestSchema":
+		actualURL = APIManifestSchema(root, args[0])
+	case "metadataMetaschema":
+		actualURL = MetadataMetaschema(root)
 	case "ui":
 		actualURL = UI(root, args[0])
 	case "apiManifest":

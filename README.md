@@ -32,6 +32,10 @@ root URL:
 * `docs(rootUrl, path)` -> `String`
 * `exchangeReference(rootUrl, service, version)` -> `String`
 * `schema(rootUrl, service, schema)` -> `String`
+* `apiManifestSchema(rootUrl, version)` -> `String`
+* `apiReferenceSchema(rootUrl, version)` -> `String`
+* `exchangesReferenceSchema(rootUrl, version)` -> `String`
+* `metadataMetaschema(rootUrl)` -> `String`
 * `ui(rootUrl, path)` -> `String`
 * `apiManifest(rootUrl)` -> `String`
 * `testRootUrl()` -> `String`
@@ -103,6 +107,10 @@ func APIReference(rootURL string, service string, version string) string
 func Docs(rootURL string, path string) string
 func ExchangeReference(rootURL string, service string, version string) string
 func Schema(rootURL string, service string, name string) string
+func APIManifestSchema(rootURL string, version string) string
+func APIReferenceSchema(rootURL string, version string) string
+func ExchangesReferenceSchema(rootURL string, version string) string
+func MetadataMetaschema(rootURL string) string
 func UI(rootURL string, path string) string
 func APIManifest(rootURL string) string
 ```
@@ -129,6 +137,10 @@ import taskcluster_urls
 
 taskcluster_urls.api(root_url, 'auth', 'v1', 'foo/bar')
 taskcluster_urls.schema(root_url, 'auth', 'v1/foo.yml') # Note that schema names have versions in them
+taskcluster_urls.api_manifest_schema(root_url, 'v1')
+taskcluster_urls.api_reference_schema(root_url, 'v1')
+taskcluster_urls.exchanges_reference_schema(root_url, 'v1')
+taskcluster_urls.metadata_metaschema(root_url, 'v1')
 taskcluster_urls.api_reference(root_url, 'auth', 'v1')
 taskcluster_urls.exchange_reference(root_url, 'auth', 'v1')
 taskcluster_urls.ui(root_url, 'foo/bar')
@@ -183,6 +195,10 @@ import org.mozilla.taskcluster.urls.*;
 
     String fooBarAPI        = urlProvider.api("auth", "v1", "foo/bar");
     String fooSchema        = urlProvider.schema("auth", "v1/foo.yml"); // Note that schema names have versions in them
+    String apiSchema        = urlProvider.apiReferenceSchema("v1");
+    String exchangesSchema  = urlProvider.exchangesReferenceSchema("v1");
+    String manifestSchema   = urlProvider.apiManifestSchema("v1");
+    String metaschema       = urlProvider.metadataMetaschema();
     String authAPIRef       = urlProvider.apiReference("auth", "v1");
     String authExchangesRef = urlProvider.exchangeReference("auth", "v1");
     String uiFooBar         = urlProvider.ui("foo/bar");

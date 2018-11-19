@@ -82,6 +82,38 @@ tests:
     new: https://taskcluster.example.com/schemas/auth/v2/something.json
     invalid: 12345/schemas/auth/v2/something.json
     empty: /schemas/auth/v2/something.json
+- function: apiReferenceSchema
+  argSets:
+  - [v1]
+  expected:
+    old: https://schemas.taskcluster.net/common/api-reference-v1.json
+    new: https://taskcluster.example.com/schemas/common/api-reference-v1.json
+    invalid: 12345/schemas/common/api-reference-v1.json
+    empty: /schemas/common/api-reference-v1.json
+- function: exchangesReferenceSchema
+  argSets:
+  - [v1]
+  expected:
+    old: https://schemas.taskcluster.net/common/exchanges-reference-v1.json
+    new: https://taskcluster.example.com/schemas/common/exchanges-reference-v1.json
+    invalid: 12345/schemas/common/exchanges-reference-v1.json
+    empty: /schemas/common/exchanges-reference-v1.json
+- function: apiManifestSchema
+  argSets:
+  - [v1]
+  expected:
+    old: https://schemas.taskcluster.net/common/manifest-v1.json
+    new: https://taskcluster.example.com/schemas/common/manifest-v1.json
+    invalid: 12345/schemas/common/manifest-v1.json
+    empty: /schemas/common/manifest-v1.json
+- function: metadataMetaschema
+  argSets:
+  - [v1]
+  expected:
+    old: https://schemas.taskcluster.net/common/metadata-metaschema.json
+    new: https://taskcluster.example.com/schemas/common/metadata-metaschema.json
+    invalid: 12345/schemas/common/metadata-metaschema.json
+    empty: /schemas/common/metadata-metaschema.json
 - function: apiReference
   argSets:
   - [auth, v1]

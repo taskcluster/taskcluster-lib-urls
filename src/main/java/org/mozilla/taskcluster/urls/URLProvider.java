@@ -29,6 +29,26 @@ public interface URLProvider {
     public String schema(String service, String schema);
 
     /**
+     * Generate URL for the api reference schema
+     */
+    public String apiReferenceSchema(String version);
+
+    /**
+     * Generate URL for the exchanges reference schema
+     */
+    public String exchangesReferenceSchema(String version);
+
+    /**
+     * Generate URL for the api manifest schema
+     */
+    public String apiManifestSchema(String version);
+
+    /**
+     * Generate URL for the metadata metaschema
+     */
+    public String metadataMetaschema();
+
+    /**
      * Generate URL for Taskcluser UI. The purpose of the function is to switch on rootUrl:
      * "The driver for having a ui method is so we can just call ui with a path and any root url, 
      *  and the returned url should work for both our current deployment (with root URL = https://taskcluster.net) 

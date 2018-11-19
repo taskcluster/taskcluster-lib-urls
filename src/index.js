@@ -45,6 +45,34 @@ class LegacyUrls {
   }
 
   /**
+   * Generate URL for the api reference schema
+   */
+  apiReferenceSchema(version) {
+    return this.schema('common', `api-reference-${version}.json`);
+  }
+
+  /**
+   * Generate URL for the exchanges reference schema
+   */
+  exchangesReferenceSchema(version) {
+    return this.schema('common', `exchanges-reference-${version}.json`);
+  }
+
+  /**
+   * Generate URL for the api manifest schema
+   */
+  apiManifestSchema(version) {
+    return this.schema('common', `manifest-${version}.json`);
+  }
+
+  /**
+   * Generate URL for the metadata metaschema
+   */
+  metadataMetaschema() {
+    return this.schema('common', 'metadata-metaschema.json');
+  }
+
+  /**
    * Generate URL for Taskcluser UI.
    */
   ui(path) {
@@ -98,6 +126,34 @@ class Urls {
    */
   schema(service, schema) {
     return `${this.rootUrl}/schemas/${service}/${cleanPath(schema)}`;
+  }
+
+  /**
+   * Generate URL for the api reference schema
+   */
+  apiReferenceSchema(version) {
+    return this.schema('common', `api-reference-${version}.json`);
+  }
+
+  /**
+   * Generate URL for the exchanges reference schema
+   */
+  exchangesReferenceSchema(version) {
+    return this.schema('common', `exchanges-reference-${version}.json`);
+  }
+
+  /**
+   * Generate URL for the api manifest schema
+   */
+  apiManifestSchema(version) {
+    return this.schema('common', `manifest-${version}.json`);
+  }
+
+  /**
+   * Generate URL for the metadata metaschema
+   */
+  metadataMetaschema() {
+    return this.schema('common', 'metadata-metaschema.json');
   }
 
   /**
@@ -172,6 +228,34 @@ module.exports = {
    */
   schema(rootUrl, service, version, schema) {
     return withRootUrl(rootUrl).schema(service, version, schema);
+  },
+
+  /**
+   * Generate URL for the api reference schema
+   */
+  apiReferenceSchema(rootUrl, version) {
+    return withRootUrl(rootUrl).apiReferenceSchema(version);
+  },
+
+  /**
+   * Generate URL for the exchanges reference schema
+   */
+  exchangesReferenceSchema(rootUrl, version) {
+    return withRootUrl(rootUrl).exchangesReferenceSchema(version);
+  },
+
+  /**
+   * Generate URL for the api manifest schema
+   */
+  apiManifestSchema(rootUrl, version) {
+    return withRootUrl(rootUrl).apiManifestSchema(version);
+  },
+
+  /**
+   * Generate URL for the metadata metaschema
+   */
+  metadataMetaschema(rootUrl) {
+    return withRootUrl(rootUrl).metadataMetaschema();
   },
 
   /**
