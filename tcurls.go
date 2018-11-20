@@ -60,6 +60,26 @@ func Schema(rootURL string, service string, name string) string {
 	}
 }
 
+// APIReferenceSchema generates a url for the api reference schema
+func APIReferenceSchema(rootURL string, version string) string {
+	return Schema(rootURL, "common", fmt.Sprintf("api-reference-%s.json", version))
+}
+
+// ExchangesReferenceSchema generates a url for the exchanges reference schema
+func ExchangesReferenceSchema(rootURL string, version string) string {
+	return Schema(rootURL, "common", fmt.Sprintf("exchanges-reference-%s.json", version))
+}
+
+// APIManifestSchema generates a url for the api manifest schema
+func APIManifestSchema(rootURL string, version string) string {
+	return Schema(rootURL, "common", fmt.Sprintf("manifest-%s.json", version))
+}
+
+// MetadataMetaschema generates a url for the metadata metaschema
+func MetadataMetaschema(rootURL string) string {
+	return Schema(rootURL, "common", "metadata-metaschema.json")
+}
+
 // UI generates a url for a page in taskcluster tools site
 // The purpose of the function is to switch on rootUrl:
 // "The driver for having a ui method is so we can just call ui with a path and any root url,
@@ -77,8 +97,8 @@ func UI(rootURL string, path string) string {
 	}
 }
 
-// ServicesManifest returns a URL for the service manifest of a taskcluster deployment
-func ServicesManifest(rootURL string) string {
+// APIManifest returns a URL for the service manifest of a taskcluster deployment
+func APIManifest(rootURL string) string {
 	switch r := strings.TrimRight(rootURL, "/"); r {
 	case oldRootURL:
 		return "https://references.taskcluster.net/manifest.json"

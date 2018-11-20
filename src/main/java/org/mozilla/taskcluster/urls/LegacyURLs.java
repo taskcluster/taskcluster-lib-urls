@@ -42,6 +42,34 @@ public class LegacyURLs implements URLProvider {
     }
 
     /**
+     * Generate URL for the api reference schema
+     */
+    public String apiReferenceSchema(String version) {
+        return schema("common", "api-reference-" + version + ".json");
+    }
+
+    /**
+     * Generate URL for the exchanges reference schema
+     */
+    public String exchangesReferenceSchema(String version) {
+        return schema("common", "exchanges-reference-" + version + ".json");
+    }
+
+    /**
+     * Generate URL for the api manifest schema
+     */
+    public String apiManifestSchema(String version) {
+        return schema("common", "manifest-" + version + ".json");
+    }
+
+    /**
+     * Generate URL for the metadata metaschema
+     */
+    public String metadataMetaschema() {
+        return schema("common", "metadata-metaschema.json");
+    }
+
+    /**
      * Generate URL for Taskcluser UI.
      */
     public String ui(String path) {
@@ -51,7 +79,7 @@ public class LegacyURLs implements URLProvider {
     /**
      * Returns a URL for the service manifest of a taskcluster deployment.
      */
-    public String servicesManifest() {
+    public String apiManifest() {
         return "https://references.taskcluster.net/manifest.json";
     }
 }

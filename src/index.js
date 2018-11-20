@@ -45,6 +45,34 @@ class LegacyUrls {
   }
 
   /**
+   * Generate URL for the api reference schema
+   */
+  apiReferenceSchema(version) {
+    return this.schema('common', `api-reference-${version}.json`);
+  }
+
+  /**
+   * Generate URL for the exchanges reference schema
+   */
+  exchangesReferenceSchema(version) {
+    return this.schema('common', `exchanges-reference-${version}.json`);
+  }
+
+  /**
+   * Generate URL for the api manifest schema
+   */
+  apiManifestSchema(version) {
+    return this.schema('common', `manifest-${version}.json`);
+  }
+
+  /**
+   * Generate URL for the metadata metaschema
+   */
+  metadataMetaschema() {
+    return this.schema('common', 'metadata-metaschema.json');
+  }
+
+  /**
    * Generate URL for Taskcluser UI.
    */
   ui(path) {
@@ -54,7 +82,7 @@ class LegacyUrls {
   /**
    * Returns a URL for the service manifest of a taskcluster deployment.
    */
-  servicesManifest() {
+  apiManifest() {
     return 'https://references.taskcluster.net/manifest.json';
   }
 }
@@ -101,6 +129,34 @@ class Urls {
   }
 
   /**
+   * Generate URL for the api reference schema
+   */
+  apiReferenceSchema(version) {
+    return this.schema('common', `api-reference-${version}.json`);
+  }
+
+  /**
+   * Generate URL for the exchanges reference schema
+   */
+  exchangesReferenceSchema(version) {
+    return this.schema('common', `exchanges-reference-${version}.json`);
+  }
+
+  /**
+   * Generate URL for the api manifest schema
+   */
+  apiManifestSchema(version) {
+    return this.schema('common', `manifest-${version}.json`);
+  }
+
+  /**
+   * Generate URL for the metadata metaschema
+   */
+  metadataMetaschema() {
+    return this.schema('common', 'metadata-metaschema.json');
+  }
+
+  /**
    * Generate URL for Taskcluser UI.
    */
   ui(path) {
@@ -110,7 +166,7 @@ class Urls {
   /**
    * Returns a URL for the service manifest of a taskcluster deployment.
    */
-  servicesManifest() {
+  apiManifest() {
     return `${this.rootUrl}/references/manifest.json`;
   }
 }
@@ -175,6 +231,34 @@ module.exports = {
   },
 
   /**
+   * Generate URL for the api reference schema
+   */
+  apiReferenceSchema(rootUrl, version) {
+    return withRootUrl(rootUrl).apiReferenceSchema(version);
+  },
+
+  /**
+   * Generate URL for the exchanges reference schema
+   */
+  exchangesReferenceSchema(rootUrl, version) {
+    return withRootUrl(rootUrl).exchangesReferenceSchema(version);
+  },
+
+  /**
+   * Generate URL for the api manifest schema
+   */
+  apiManifestSchema(rootUrl, version) {
+    return withRootUrl(rootUrl).apiManifestSchema(version);
+  },
+
+  /**
+   * Generate URL for the metadata metaschema
+   */
+  metadataMetaschema(rootUrl) {
+    return withRootUrl(rootUrl).metadataMetaschema();
+  },
+
+  /**
    * Generate URL for Taskcluser UI. The purpose of the function is to switch on rootUrl:
    * "The driver for having a ui method is so we can just call ui with a path and any root url, 
    *  and the returned url should work for both our current deployment (with root URL = https://taskcluster.net) 
@@ -195,8 +279,8 @@ module.exports = {
   /**
    * Returns a URL for the service manifest of a taskcluster deployment.
    */
-  servicesManifest(rootUrl) {
-    return withRootUrl(rootUrl).servicesManifest();
+  apiManifest(rootUrl) {
+    return withRootUrl(rootUrl).apiManifest();
   },
 
   /**

@@ -43,6 +43,22 @@ def schema(root_url, service, name):
     else:
         return '{}/schemas/{}/{}'.format(root_url, service, name)
 
+def api_reference_schema(root_url, version):
+    """Generate URL for the api reference schema."""
+    return schema(root_url, 'common', 'api-reference-{}.json'.format(version))
+
+def exchanges_reference_schema(root_url, version):
+    """Generate URL for the exchanges reference schema."""
+    return schema(root_url, 'common', 'exchanges-reference-{}.json'.format(version))
+
+def api_manifest_schema(root_url, version):
+    """Generate URL for the api manifest schema"""
+    return schema(root_url, 'common', 'manifest-{}.json'.format(version))
+
+def metadata_metaschema(root_url, version):
+    """Generate URL for the metadata metaschema"""
+    return schema(root_url, 'common', 'metadata-metaschema.json')
+
 def ui(root_url, path):
     """
     Generate URL for a path in the Taskcluster ui.
@@ -60,8 +76,8 @@ def ui(root_url, path):
     else:
         return '{}/{}'.format(root_url, path)
 
-def services_manifest(root_url):
-    """Returns a URL for the service manifest of a taskcluster deployment."""
+def api_manifest(root_url):
+    """Returns a URL for the API manifest of a taskcluster deployment."""
     root_url = root_url.rstrip('/')
     if root_url == OLD_ROOT_URL:
         return 'https://references.taskcluster.net/manifest.json'
