@@ -60,7 +60,8 @@ tasks:
         description: Run library test suite - golang 1.10
         owner: taskcluster-internal@mozilla.com
         source: ${clone_url}
-  - $if: should_run
+  # java support is currently broken, so this never runs
+  - $if: 'false'
     then:
       provisionerId: proj-taskcluster
       workerType: ci
