@@ -76,6 +76,7 @@ tasks:
         - /bin/bash
         - '-c'
         - |
+          curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $GOPATH/bin v1.12.3 &&
           mkdir -p /go/src/github.com/taskcluster/taskcluster-lib-urls
           cd /go/src/github.com/taskcluster/taskcluster-lib-urls
           git clone {{event.head.repo.url}} .
@@ -83,9 +84,7 @@ tasks:
           git checkout {{event.head.sha}}
           go get -v -d -t ./...
           go test -v -race ./...
-          go get -u github.com/alecthomas/gometalinter
-          gometalinter --install
-          gometalinter
+          golangci-lint run
     metadata:
       name: "taskcluster-lib-urls go test"
       description: Run library test suite - golang 1.10
