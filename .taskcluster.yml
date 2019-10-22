@@ -1,172 +1,131 @@
-version: 0
-metadata:
-  name: "taskcluster-lib-urls test"
-  description: "Library for building taskcluster urls"
-  owner: "{{ event.head.user.email }}"
-  source: "{{ event.head.repo.url }}"
-
+version: 1
+policy:
+  pullRequests: public
 tasks:
-  - provisionerId: "{{ taskcluster.docker.provisionerId }}"
-    workerType: "{{ taskcluster.docker.workerType }}"
-    extra:
-      github:
-        env: true
-        events:
-          - pull_request.opened
-          - pull_request.synchronize
-          - pull_request.reopened
-          - push
-    payload:
-      maxRunTime: 3600
-      image: "node:10"
-      command:
-        - "/bin/bash"
-        - "-lc"
-        - "git clone {{event.head.repo.url}} repo && cd repo && git checkout {{event.head.sha}} && yarn install && yarn test"
-    metadata:
-      name: "taskcluster-lib-urls node.js test"
-      description: "Library for building taskcluster urls"
-      owner: "{{ event.head.user.email }}"
-      source: "{{ event.head.repo.url }}"
-  - provisionerId: '{{ taskcluster.docker.provisionerId }}'
-    workerType: '{{ taskcluster.docker.workerType }}'
-    extra:
-      github:
-        events:
-          - push
-        branches:
-          - master
-    scopes:
-      - auth:aws-s3:read-write:taskcluster-raw-docs/taskcluster-lib-urls/
-    payload:
-      maxRunTime: 3600
-      image: taskcluster/upload-project-docs:latest
-      features:
-        taskclusterProxy:
-          true
-      command:
-        - /bin/bash
-        - '--login'
-        - '-cx'
-        - |
-          git clone {{event.head.repo.url}} repo
-          cd repo
-          git config advice.detachedHead false
-          git checkout {{event.head.sha}}
-          export DEBUG=* DOCS_PROJECT=taskcluster-lib-urls DOCS_TIER=libraries DOCS_FOLDER=docs DOCS_README=README.md
-          upload-project-docs
-    metadata:
-      name: "taskcluster-lib-urls docs upload"
-      description: "Upload documentation for this project"
-      owner: '{{ event.head.user.email }}'
-      source: '{{ event.head.repo.url }}'
-  - provisionerId: '{{ taskcluster.docker.provisionerId }}'
-    workerType: '{{ taskcluster.docker.workerType }}'
-    extra:
-      github:
-        events:
-          - pull_request.opened
-          - pull_request.synchronize
-          - pull_request.reopened
-          - push
-    payload:
-      maxRunTime: 3600
-      image: 'golang:1.10'
-      command:
-        - /bin/bash
-        - '-c'
-        - |
-          curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $GOPATH/bin v1.12.3 &&
-          mkdir -p /go/src/github.com/taskcluster/taskcluster-lib-urls
-          cd /go/src/github.com/taskcluster/taskcluster-lib-urls
-          git clone {{event.head.repo.url}} .
-          git config advice.detachedHead false
-          git checkout {{event.head.sha}}
-          go get -v -d -t ./...
-          go test -v -race ./...
-          golangci-lint run
-    metadata:
-      name: "taskcluster-lib-urls go test"
-      description: Run library test suite - golang 1.10
-      owner: '{{ event.head.user.email }}'
-      source: '{{ event.head.repo.url }}'
-  - provisionerId: '{{ taskcluster.docker.provisionerId }}'
-    workerType: '{{ taskcluster.docker.workerType }}'
-    extra:
-      github:
-        events:
-          - pull_request.opened
-          - pull_request.synchronize
-          - pull_request.reopened
-          - push
-    payload:
-      maxRunTime: 3600
-      image: 'maven'
-      command:
-        - /bin/bash
-        - '-c'
-        - |
-          git clone {{event.head.repo.url}} repo
-          cd repo
-          git config advice.detachedHead false
-          git checkout {{event.head.sha}}
-          mvn -X -e install
-    metadata:
-      name: taskcluster-lib-urls java test
-      description: Run library test suite - java
-      owner: '{{ event.head.user.email }}'
-      source: '{{ event.head.repo.url }}'
-  - provisionerId: '{{ taskcluster.docker.provisionerId }}'
-    workerType: '{{ taskcluster.docker.workerType }}'
-    extra:
-      github:
-        events:
-          - pull_request.opened
-          - pull_request.synchronize
-          - pull_request.reopened
-          - push
-    payload:
-      maxRunTime: 3600
-      image: 'python:2.7'
-      command:
-        - /bin/bash
-        - '-c'
-        - |
-          git clone {{event.head.repo.url}} repo
-          cd repo
-          git config advice.detachedHead false
-          git checkout {{event.head.sha}}
-          pip install tox
-          tox -e py27
-    metadata:
-      name: "taskcluster-lib-urls python 2.7 test"
-      description: Run library test suite - python2.7
-      owner: '{{ event.head.user.email }}'
-      source: '{{ event.head.repo.url }}'
-  - provisionerId: '{{ taskcluster.docker.provisionerId }}'
-    workerType: '{{ taskcluster.docker.workerType }}'
-    extra:
-      github:
-        events:
-          - pull_request.opened
-          - pull_request.synchronize
-          - pull_request.reopened
-          - push
-    payload:
-      maxRunTime: 3600
-      image: 'python:3.6'
-      command:
-        - /bin/bash
-        - '-c'
-        - |
-          git clone {{event.head.repo.url}} repo
-          cd repo
-          git config advice.detachedHead false
-          git checkout {{event.head.sha}}
-          pip install tox
-          tox -e py36
-    metadata:
-      name: taskcluster-lib-urls python 3.6 test
-      description: Run library test suite - python3.6
-      owner: '{{ event.head.user.email }}'
-      source: '{{ event.head.repo.url }}'
+  $let:
+    should_run:
+      $if: 'tasks_for == "github-pull-request"'
+      then: {$eval: 'event["action"] in ["opened", "reopened", "synchronize"]'}
+      else: {$eval: 'tasks_for == "github-push"'}
+    clone_url:
+      $if: 'tasks_for == "github-pull-request"'
+      then: ${event.pull_request.head.repo.clone_url}
+      else: ${event.repository.clone_url}
+    sha:
+      $if: 'tasks_for == "github-pull-request"'
+      then: ${event.pull_request.head.sha}
+      else: ${event.after}
+  in:
+  - $if: should_run
+    then:
+      provisionerId: proj-taskcluster
+      workerType: ci
+      deadline: {$fromNow: '1 day'}
+      payload:
+        maxRunTime: 3600
+        image: "node:10"
+        command:
+          - "/bin/bash"
+          - "-lc"
+          - "git clone ${clone_url} repo && cd repo && git checkout ${sha} && yarn install && yarn test"
+      metadata:
+        name: "taskcluster-lib-urls node.js test"
+        description: "Library for building taskcluster urls"
+        owner: taskcluster-internal@mozilla.com
+        source: ${clone_url}
+  - $if: should_run
+    then:
+      provisionerId: proj-taskcluster
+      workerType: ci
+      deadline: {$fromNow: '1 day'}
+      payload:
+        maxRunTime: 3600
+        image: 'golang:1.10'
+        command:
+          - /bin/bash
+          - '-c'
+          - |
+            curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $GOPATH/bin v1.12.3 &&
+            mkdir -p /go/src/github.com/taskcluster/taskcluster-lib-urls
+            cd /go/src/github.com/taskcluster/taskcluster-lib-urls
+            git clone ${clone_url} repo
+            cd repo
+            git config advice.detachedHead false
+            git checkout ${sha}
+            go get -v -d -t ./...
+            go test -v -race ./...
+            golangci-lint run
+      metadata:
+        name: "taskcluster-lib-urls go test"
+        description: Run library test suite - golang 1.10
+        owner: taskcluster-internal@mozilla.com
+        source: ${clone_url}
+  # java support is currently broken, so this never runs
+  - $if: 'false'
+    then:
+      provisionerId: proj-taskcluster
+      workerType: ci
+      deadline: {$fromNow: '1 day'}
+      payload:
+        maxRunTime: 3600
+        image: 'maven'
+        command:
+          - /bin/bash
+          - '-c'
+          - |
+            git clone ${clone_url} repo
+            cd repo
+            git config advice.detachedHead false
+            git checkout ${sha}
+            mvn -X -e install
+      metadata:
+        name: taskcluster-lib-urls java test
+        description: Run library test suite - java
+        owner: taskcluster-internal@mozilla.com
+        source: ${clone_url}
+  - $if: should_run
+    then:
+      provisionerId: proj-taskcluster
+      workerType: ci
+      deadline: {$fromNow: '1 day'}
+      payload:
+        maxRunTime: 3600
+        image: 'python:2.7'
+        command:
+          - /bin/bash
+          - '-c'
+          - |
+            git clone ${clone_url} repo
+            cd repo
+            git config advice.detachedHead false
+            git checkout ${sha}
+            pip install tox
+            tox -e py27
+      metadata:
+        name: "taskcluster-lib-urls python 2.7 test"
+        description: Run library test suite - python2.7
+        owner: taskcluster-internal@mozilla.com
+        source: ${clone_url}
+  - $if: should_run
+    then:
+      provisionerId: proj-taskcluster
+      workerType: ci
+      deadline: {$fromNow: '1 day'}
+      payload:
+        maxRunTime: 3600
+        image: 'python:3.6'
+        command:
+          - /bin/bash
+          - '-c'
+          - |
+            git clone ${clone_url} repo
+            cd repo
+            git config advice.detachedHead false
+            git checkout ${sha}
+            pip install tox
+            tox -e py36
+      metadata:
+        name: taskcluster-lib-urls python 3.6 test
+        description: Run library test suite - python3.6
+        owner: taskcluster-internal@mozilla.com
+        source: ${clone_url}
