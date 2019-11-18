@@ -18,10 +18,6 @@
 #################################################################################
 ---
 rootURLs:
-  old:
-  - https://taskcluster.net
-  - https://taskcluster.net/
-  - https://taskcluster.net//
   new:
   - https://taskcluster.example.com
   - https://taskcluster.example.com/
@@ -38,7 +34,6 @@ tests:
   - [auth, v1, /ping]
   - [auth, v1, //ping]
   expected:
-    old: https://auth.taskcluster.net/v1/ping
     new: https://taskcluster.example.com/api/auth/v1/ping
     invalid: 12345/api/auth/v1/ping
     empty: /api/auth/v1/ping
@@ -48,7 +43,6 @@ tests:
   - [auth, v1, /foo/ping]
   - [auth, v1, //foo/ping]
   expected:
-    old: https://auth.taskcluster.net/v1/foo/ping
     new: https://taskcluster.example.com/api/auth/v1/foo/ping
     invalid: 12345/api/auth/v1/foo/ping
     empty: /api/auth/v1/foo/ping
@@ -58,7 +52,6 @@ tests:
   - [/something/in/docs]
   - [//something/in/docs]
   expected:
-    old: https://docs.taskcluster.net/something/in/docs
     new: https://taskcluster.example.com/docs/something/in/docs
     invalid: 12345/docs/something/in/docs
     empty: /docs/something/in/docs
@@ -68,7 +61,6 @@ tests:
   - [auth, /v1/something.json]
   - [auth, //v1/something.json]
   expected:
-    old: https://schemas.taskcluster.net/auth/v1/something.json
     new: https://taskcluster.example.com/schemas/auth/v1/something.json
     invalid: 12345/schemas/auth/v1/something.json
     empty: /schemas/auth/v1/something.json
@@ -78,7 +70,6 @@ tests:
   - [auth, /v2/something.json]
   - [auth, //v2/something.json]
   expected:
-    old: https://schemas.taskcluster.net/auth/v2/something.json
     new: https://taskcluster.example.com/schemas/auth/v2/something.json
     invalid: 12345/schemas/auth/v2/something.json
     empty: /schemas/auth/v2/something.json
@@ -86,7 +77,6 @@ tests:
   argSets:
   - [v1]
   expected:
-    old: https://schemas.taskcluster.net/common/api-reference-v1.json
     new: https://taskcluster.example.com/schemas/common/api-reference-v1.json
     invalid: 12345/schemas/common/api-reference-v1.json
     empty: /schemas/common/api-reference-v1.json
@@ -94,7 +84,6 @@ tests:
   argSets:
   - [v1]
   expected:
-    old: https://schemas.taskcluster.net/common/exchanges-reference-v1.json
     new: https://taskcluster.example.com/schemas/common/exchanges-reference-v1.json
     invalid: 12345/schemas/common/exchanges-reference-v1.json
     empty: /schemas/common/exchanges-reference-v1.json
@@ -102,7 +91,6 @@ tests:
   argSets:
   - [v1]
   expected:
-    old: https://schemas.taskcluster.net/common/manifest-v1.json
     new: https://taskcluster.example.com/schemas/common/manifest-v1.json
     invalid: 12345/schemas/common/manifest-v1.json
     empty: /schemas/common/manifest-v1.json
@@ -110,7 +98,6 @@ tests:
   argSets:
   - [v1]
   expected:
-    old: https://schemas.taskcluster.net/common/metadata-metaschema.json
     new: https://taskcluster.example.com/schemas/common/metadata-metaschema.json
     invalid: 12345/schemas/common/metadata-metaschema.json
     empty: /schemas/common/metadata-metaschema.json
@@ -118,7 +105,6 @@ tests:
   argSets:
   - [auth, v1]
   expected:
-    old: https://references.taskcluster.net/auth/v1/api.json
     new: https://taskcluster.example.com/references/auth/v1/api.json
     invalid: 12345/references/auth/v1/api.json
     empty: /references/auth/v1/api.json
@@ -126,7 +112,6 @@ tests:
   argSets:
   - [auth, v1]
   expected:
-    old: https://references.taskcluster.net/auth/v1/exchanges.json
     new: https://taskcluster.example.com/references/auth/v1/exchanges.json
     invalid: 12345/references/auth/v1/exchanges.json
     empty: /references/auth/v1/exchanges.json
@@ -136,7 +121,6 @@ tests:
   - [/something]
   - [//something]
   expected:
-    old: https://tools.taskcluster.net/something
     new: https://taskcluster.example.com/something
     invalid: 12345/something
     empty: /something
@@ -146,7 +130,6 @@ tests:
   - [/]
   - [//]
   expected:
-    old: https://tools.taskcluster.net/
     new: https://taskcluster.example.com/
     invalid: 12345/
     empty: /
@@ -154,7 +137,6 @@ tests:
   argSets:
   - []
   expected:
-    old: https://references.taskcluster.net/manifest.json
     new: https://taskcluster.example.com/references/manifest.json
     invalid: 12345/references/manifest.json
     empty: /references/manifest.json

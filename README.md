@@ -42,8 +42,7 @@ root URL:
 * `withRootUrl(rootUrl)` -> `Class` instance for above methods
 * `normalizeRootUrl(rootUrl)` -> `String` (the "normalized" form of the given rootUrl)
 
-When the `rootUrl` is `https://taskcluster.net`, the generated URLs will be to the Heroku cluster. Otherwise they will follow the
-[spec defined in this project](https://github.com/taskcluster/taskcluster-lib-urls/tree/master/docs/urls-spec.md).
+The generated URLs follow the [spec defined in this project](https://github.com/taskcluster/taskcluster-lib-urls/tree/master/docs/urls-spec.md).
 
 `testRootUrl()` is used to share a common fake `rootUrl` between various Taskcluster mocks in testing.
 The URL does not resolve.
