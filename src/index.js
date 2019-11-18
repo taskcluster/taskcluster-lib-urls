@@ -290,4 +290,11 @@ module.exports = {
   testRootUrl() {
     return 'https://tc-tests.example.com';
   },
+
+  /**
+   * Return the normal form of this rootUrl
+   */
+  normalizeRootUrl(rootUrl) {
+    return cleanRoot(rootUrl);
+  },
 };

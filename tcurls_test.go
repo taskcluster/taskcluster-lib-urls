@@ -19,6 +19,20 @@ type TestsSpecification struct {
 	Tests    []TestCase          `yaml:"tests"`
 }
 
+func getTests() (*TestsSpecification, error) {
+	data, err := ioutil.ReadFile("tests.yml")
+	if err != nil {
+		return nil, err
+	}
+	var spec TestsSpecification
+	err = yaml.Unmarshal([]byte(data), &spec)
+	if err != nil {
+		return nil, err
+	}
+
+	return &spec, nil
+}
+
 func testFunc(t *testing.T, function string, expectedURL string, root string, args ...string) {
 	var actualURL string
 	switch function {
@@ -56,16 +70,10 @@ func testFunc(t *testing.T, function string, expectedURL string, root string, ar
 }
 
 func TestURLs(t *testing.T) {
-	data, err := ioutil.ReadFile("tests.yml")
+	spec, err := getTests()
 	if err != nil {
 		t.Error(err)
 	}
-	var spec TestsSpecification
-	err = yaml.Unmarshal([]byte(data), &spec)
-	if err != nil {
-		t.Error(err)
-	}
-
 	for _, test := range spec.Tests {
 		for _, argSet := range test.ArgSets {
 			for cluster, rootURLs := range spec.RootURLs {
@@ -74,6 +82,22 @@ func TestURLs(t *testing.T) {
 				}
 			}
 		}
+	}
+}
+
+func TestNormalize(t *testing.T) {
+	spec, err := getTests()
+	if err != nil {
+		t.Error(err)
+	}
+
+	expected := spec.RootURLs["new"][0]
+	for _, rootURL := range spec.RootURLs["new"] {
+		actual := NormalizeRootURL(rootURL)
+		if expected != actual {
+			t.Errorf("%v NormalizeRootURL(%v) = `%v` but should be `%v`", redCross(), rootURL, actual, expected)
+		}
+		t.Logf("%v NormalizeRootURL(%v) = `%v`", greenTick(), rootURL, actual)
 	}
 }
 

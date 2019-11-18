@@ -106,3 +106,8 @@ func APIManifest(rootURL string) string {
 		return fmt.Sprintf("%s/references/manifest.json", r)
 	}
 }
+
+// NormalizeRootURL returns the normal form of the given rootURL.
+func NormalizeRootURL(rootURL string) string {
+	return strings.TrimRight(rootURL, "/")
+}
