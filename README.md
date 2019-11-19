@@ -7,7 +7,7 @@ A simple library to generate URLs for various Taskcluster resources across our v
 This serves as both a simple shim for projects that use JavaScript but also is the reference implementation for
 how we define these paths.
 
-URLs are defined in the '[Taskcluster URL Format](https://github.com/taskcluster/taskcluster-lib-urls/tree/master/docs/urls-spec.md)' document.
+URLs are defined in the '[Taskcluster URL Format](https://docs.taskcluster.net/docs/reference/url-structure).
 
 Changelog
 ---------
@@ -17,6 +17,30 @@ Requirements
 ------------
 
 This is tested on and should run on any of Node.js `{8, 10}`.
+
+General Usage
+-------------
+
+While the capitalization and punctunation of the function names varies depending on the language, each language provides the following methods:
+
+| method | result |
+| --- | --- |
+| api(rootUrl, service, version, path) | `<rootUrl>/api/<service>/<version>/<path>` |
+| apiReference(rootUrl, service, version) | `<rootUrl>/references/<service>/<version>/api.json` |
+| docs(rootUrl, path) | `<rootUrl>/docs/<path>` |
+| exchangeReference(rootUrl, service, version) | `<rootUrl>/references/<service>/<version>/exchanges.json` |
+| schema(rootUrl, service, schema) | `<rootUrl>/schemas/<service>/<schema>` |
+| apiSchema(rootUrl, version) | `<rootUrl>/schemas/common/api-reference-<version>.json` |
+| exchangesSchema(rootUrl, version) | `<rootUrl>/schemas/common/exchanges-reference-<version>.json` |
+| apiManifestSchema(rootUrl, version) | `<rootUrl>/schemas/common/manifest-<version>.json` |
+| metadataMchema(rootUrl) | `<rootUrl>/schemas/common/metadata-metaschema.json` |
+| ui(rootUrl, path) | `<rootUrl>/<path>` |
+| apiManifest(rootUrl) | `<rootUrl>/references/manifest.json` |
+| normalizeRootUrl(rootUrl) | the normal form of the given rootUrl |
+| testRootUrl() | `https://tc-tests.example.com` |
+
+`testRootUrl()` is used to share a common fake `rootUrl` between various Taskcluster mocks in testing.
+The URL does not resolve.
 
 JS Usage
 --------
@@ -41,12 +65,6 @@ root URL:
 * `testRootUrl()` -> `String`
 * `withRootUrl(rootUrl)` -> `Class` instance for above methods
 * `normalizeRootUrl(rootUrl)` -> `String` (the "normalized" form of the given rootUrl)
-
-When the `rootUrl` is `https://taskcluster.net`, the generated URLs will be to the Heroku cluster. Otherwise they will follow the
-[spec defined in this project](https://github.com/taskcluster/taskcluster-lib-urls/tree/master/docs/urls-spec.md).
-
-`testRootUrl()` is used to share a common fake `rootUrl` between various Taskcluster mocks in testing.
-The URL does not resolve.
 
 ```js
 // Specifying root URL every time:
@@ -114,7 +132,7 @@ func ExchangesReferenceSchema(rootURL string, version string) string
 func MetadataMetaschema(rootURL string) string
 func UI(rootURL string, path string) string
 func APIManifest(rootURL string) string
-func NormalizedRootURL(rootURL string) string
+func NormalizeRootURL(rootURL string) string
 ```
 
 Install with:
@@ -148,10 +166,7 @@ taskcluster_urls.exchange_reference(root_url, 'auth', 'v1')
 taskcluster_urls.ui(root_url, 'foo/bar')
 taskcluster_urls.apiManifest(root_url)
 taskcluster_urls.docs(root_url, 'foo/bar')
-taskcluster_urls.normalized_root_url(root_url)
-
-And for testing,
-```python
+taskcluster_urls.normalize_root_url(root_url)
 taskcluster_urls.test_root_url()
 ```
 
