@@ -7,7 +7,7 @@ A simple library to generate URLs for various Taskcluster resources across our v
 This serves as both a simple shim for projects that use JavaScript but also is the reference implementation for
 how we define these paths.
 
-URLs are defined in the 'Taskcluster URL Format' document.
+URLs are defined in the '[Taskcluster URL Format](https://github.com/taskcluster/taskcluster-lib-urls/tree/master/docs/urls-spec.md)' document.
 
 Changelog
 ---------
@@ -40,6 +40,7 @@ root URL:
 * `apiManifest(rootUrl)` -> `String`
 * `testRootUrl()` -> `String`
 * `withRootUrl(rootUrl)` -> `Class` instance for above methods
+* `normalizeRootUrl(rootUrl)` -> `String` (the "normalized" form of the given rootUrl)
 
 When the `rootUrl` is `https://taskcluster.net`, the generated URLs will be to the Heroku cluster. Otherwise they will follow the
 [spec defined in this project](https://github.com/taskcluster/taskcluster-lib-urls/tree/master/docs/urls-spec.md).
@@ -113,6 +114,7 @@ func ExchangesReferenceSchema(rootURL string, version string) string
 func MetadataMetaschema(rootURL string) string
 func UI(rootURL string, path string) string
 func APIManifest(rootURL string) string
+func NormalizedRootURL(rootURL string) string
 ```
 
 Install with:
@@ -146,6 +148,7 @@ taskcluster_urls.exchange_reference(root_url, 'auth', 'v1')
 taskcluster_urls.ui(root_url, 'foo/bar')
 taskcluster_urls.apiManifest(root_url)
 taskcluster_urls.docs(root_url, 'foo/bar')
+taskcluster_urls.normalized_root_url(root_url)
 
 And for testing,
 ```python

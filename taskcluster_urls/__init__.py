@@ -88,3 +88,7 @@ def test_root_url():
     """Returns a standardized "testing" rootUrl that does not resolve but
     is easily recognizable in test failures."""
     return 'https://tc-tests.example.com'
+
+def normalize_root_url(root_url):
+    """Return the normal form of the given rootUrl"""
+    return root_url.rstrip('/')

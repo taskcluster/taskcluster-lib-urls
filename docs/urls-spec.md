@@ -13,6 +13,10 @@ Example:
 https://taskcluster.example.com
 ```
 
+Normally, a rootUrl has no trailing `/` characters.
+We suggest that libraries and tools be lenient and accept rootUrls containing a trailing `/`, but produce rootUrls without a trailing `/`.
+The `normalizeRootUrl` function supports this practice.
+
 # URLs
 
 Taskcluster uses URLs with the following pattern:
