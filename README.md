@@ -25,19 +25,19 @@ While the capitalization and punctunation of the function names varies depending
 
 | method | result |
 | --- | --- |
-| api(rootUrl, service, version, path) | `<rootUrl>/api/<service>/<version>/<path>` |
-| apiReference(rootUrl, service, version) | `<rootUrl>/references/<service>/<version>/api.json` |
-| docs(rootUrl, path) | `<rootUrl>/docs/<path>` |
-| exchangeReference(rootUrl, service, version) | `<rootUrl>/references/<service>/<version>/exchanges.json` |
-| schema(rootUrl, service, schema) | `<rootUrl>/schemas/<service>/<schema>` |
-| apiSchema(rootUrl, version) | `<rootUrl>/schemas/common/api-reference-<version>.json` |
-| exchangesSchema(rootUrl, version) | `<rootUrl>/schemas/common/exchanges-reference-<version>.json` |
-| apiManifestSchema(rootUrl, version) | `<rootUrl>/schemas/common/manifest-<version>.json` |
-| metadataMchema(rootUrl) | `<rootUrl>/schemas/common/metadata-metaschema.json` |
-| ui(rootUrl, path) | `<rootUrl>/<path>` |
-| apiManifest(rootUrl) | `<rootUrl>/references/manifest.json` |
-| normalizeRootUrl(rootUrl) | the normal form of the given rootUrl |
-| testRootUrl() | `https://tc-tests.example.com` |
+| api(rootUrl, service, version, path) -> | `<rootUrl>/api/<service>/<version>/<path>` |
+| apiReference(rootUrl, service, version) -> | `<rootUrl>/references/<service>/<version>/api.json` |
+| docs(rootUrl, path) -> | `<rootUrl>/docs/<path>` |
+| exchangeReference(rootUrl, service, version) -> | `<rootUrl>/references/<service>/<version>/exchanges.json` |
+| schema(rootUrl, service, schema) -> | `<rootUrl>/schemas/<service>/<schema>` |
+| apiSchema(rootUrl, version) -> | `<rootUrl>/schemas/common/api-reference-<version>.json` |
+| exchangesSchema(rootUrl, version) -> | `<rootUrl>/schemas/common/exchanges-reference-<version>.json` |
+| apiManifestSchema(rootUrl, version) -> | `<rootUrl>/schemas/common/manifest-<version>.json` |
+| metadataMchema(rootUrl) -> | `<rootUrl>/schemas/common/metadata-metaschema.json` |
+| ui(rootUrl, path) -> | `<rootUrl>/<path>` |
+| apiManifest(rootUrl) -> | `<rootUrl>/references/manifest.json` |
+| normalizeRootUrl(rootUrl) -> | the normal form of the given rootUrl |
+| testRootUrl() -> | `https://tc-tests.example.com` |
 
 `testRootUrl()` is used to share a common fake `rootUrl` between various Taskcluster mocks in testing.
 The URL does not resolve.
