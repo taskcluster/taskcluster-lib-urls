@@ -10,7 +10,7 @@
     "test": "mocha test/*_test.js"
   },
   "files": [
-    "src"
+    "src/index.js"
   ],
   "repository": {
     "type": "git",
