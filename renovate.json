@@ -3,6 +3,11 @@
     "config:base"
   ],
   "rangeStrategy": "update-lockfile",
+  "enabledManagers": [
+    "npm",
+    "gomod",
+    "pip_setup"
+  ],
   "postUpdateOptions": [
     "gomodTidy"
   ]
