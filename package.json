@@ -18,8 +18,9 @@
   },
   "main": "./src/index.js",
   "devDependencies": {
-    "eslint-config-taskcluster": "^3.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-taskcluster": "^4.0.0",
     "js-yaml": "^3.11.0",
-    "mocha": "^5.1.1"
+    "mocha": "^7.1.1"
   }
 }
