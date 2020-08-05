@@ -44,7 +44,7 @@ The URL does not resolve.
 
 JS Usage
 --------
-[![Node.js Build Status](https://travis-ci.org/taskcluster/taskcluster-lib-urls.svg?branch=master)](https://travis-ci.org/taskcluster/taskcluster-lib-urls)
+[![Node.js Build Status](https://travis-ci.org/taskcluster/taskcluster-lib-urls.svg?branch=main)](https://travis-ci.org/taskcluster/taskcluster-lib-urls)
 [![npm](https://img.shields.io/npm/v/taskcluster-lib-urls.svg?maxAge=2592000)](https://www.npmjs.com/package/taskcluster-lib-urls)
 
 This package exports several methods for generating URLs conditionally based on
@@ -267,4 +267,4 @@ Make sure to update [the changelog](https://github.com/taskcluster/taskcluster-l
 License
 -------
 
-[Mozilla Public License Version 2.0](https://github.com/taskcluster/taskcluster-lib-urls/blob/master/LICENSE)
+[Mozilla Public License Version 2.0](https://github.com/taskcluster/taskcluster-lib-urls/blob/main/LICENSE)
