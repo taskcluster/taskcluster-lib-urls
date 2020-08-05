@@ -22,7 +22,7 @@ Welcome to the team!
 [bugsahoy]: https://www.joshmatthews.net/bugsahoy/?taskcluster=1
 [goodfirstbug]: http://www.joshmatthews.net/bugsahoy/?taskcluster=1&simple=1
 [irc]: https://wiki.mozilla.org/IRC
-[bestpractices]: https://github.com/taskcluster/taskcluster/tree/master/dev-docs/best-practices/
-[testing]: https://github.com/taskcluster/taskcluster/blob/master/dev-docs/best-practices/testing.md
-[commit]: https://github.com/taskcluster/taskcluster/blob/master/dev-docs/best-practices/commits.md
+[bestpractices]: https://github.com/taskcluster/taskcluster/tree/main/dev-docs/best-practices/
+[testing]: https://github.com/taskcluster/taskcluster/blob/main/dev-docs/best-practices/testing.md
+[commit]: https://github.com/taskcluster/taskcluster/blob/main/dev-docs/best-practices/commits.md
 
