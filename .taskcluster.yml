@@ -67,7 +67,7 @@ tasks:
       deadline: {$fromNow: '1 day'}
       payload:
         maxRunTime: 3600
-        image: 'maven'
+        image: 'maven:3.6.3-openjdk-8'
         command:
           - /bin/bash
           - '-c'
