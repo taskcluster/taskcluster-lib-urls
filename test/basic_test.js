@@ -5,7 +5,7 @@ const yaml = require('js-yaml');
 const libUrls = require('../');
 
 const SPEC_FILE = path.join(__dirname, '../tests.yml');
-const TESTS = yaml.safeLoad(fs.readFileSync(SPEC_FILE, {encoding: 'utf8'}));
+const TESTS = yaml.load(fs.readFileSync(SPEC_FILE, {encoding: 'utf8'}));
 
 suite('basic test', function() {
   for (let t of TESTS['tests']) {
