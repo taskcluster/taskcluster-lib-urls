@@ -1,6 +1,8 @@
 version: 1
+reporting: checks-v1
 policy:
   pullRequests: public
+autoCancelPreviousChecks: true
 tasks:
   $let:
     should_run:
@@ -23,7 +25,7 @@ tasks:
       deadline: {$fromNow: '1 day'}
       payload:
         maxRunTime: 3600
-        image: "node:10"
+        image: "node:22"
         command:
           - "/bin/bash"
           - "-lc"
@@ -40,24 +42,21 @@ tasks:
       deadline: {$fromNow: '1 day'}
       payload:
         maxRunTime: 3600
-        image: 'golang:1.10'
+        image: 'golang:1.23'
         command:
           - /bin/bash
           - '-c'
           - |
-            curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $GOPATH/bin v1.12.3 &&
-            mkdir -p /go/src/github.com/taskcluster/taskcluster-lib-urls
-            cd /go/src/github.com/taskcluster/taskcluster-lib-urls
+            curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.61.0 &&
             git clone ${clone_url} repo
             cd repo
             git config advice.detachedHead false
             git checkout ${sha}
-            go get -v -d -t ./...
             go test -v -race ./...
             golangci-lint run
       metadata:
         name: "taskcluster-lib-urls go test"
-        description: Run library test suite - golang 1.10
+        description: Run library test suite - golang 1.23
         owner: taskcluster-internal@mozilla.com
         source: ${clone_url}
   - $if: should_run
@@ -67,7 +66,7 @@ tasks:
       deadline: {$fromNow: '1 day'}
       payload:
         maxRunTime: 3600
-        image: 'maven:3.6.3-openjdk-8'
+        image: 'maven:3.9-eclipse-temurin-21'
         command:
           - /bin/bash
           - '-c'
@@ -89,7 +88,7 @@ tasks:
       deadline: {$fromNow: '1 day'}
       payload:
         maxRunTime: 3600
-        image: 'python:2.7'
+        image: 'python:3.12'
         command:
           - /bin/bash
           - '-c'
@@ -99,32 +98,9 @@ tasks:
             git config advice.detachedHead false
             git checkout ${sha}
             pip install tox
-            tox -e py27
+            tox -e py312
       metadata:
-        name: "taskcluster-lib-urls python 2.7 test"
-        description: Run library test suite - python2.7
-        owner: taskcluster-internal@mozilla.com
-        source: ${clone_url}
-  - $if: should_run
-    then:
-      provisionerId: proj-taskcluster
-      workerType: ci
-      deadline: {$fromNow: '1 day'}
-      payload:
-        maxRunTime: 3600
-        image: 'python:3.6'
-        command:
-          - /bin/bash
-          - '-c'
-          - |
-            git clone ${clone_url} repo
-            cd repo
-            git config advice.detachedHead false
-            git checkout ${sha}
-            pip install tox
-            tox -e py36
-      metadata:
-        name: taskcluster-lib-urls python 3.6 test
-        description: Run library test suite - python3.6
+        name: taskcluster-lib-urls python 3.12 test
+        description: Run library test suite - python3.12
         owner: taskcluster-internal@mozilla.com
         source: ${clone_url}

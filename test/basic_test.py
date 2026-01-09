@@ -11,7 +11,7 @@ SPEC_FILE = os.path.join(os.path.dirname(__file__), '..', 'tests.yml')
 
 def pytest_generate_tests(metafunc):
     with open(SPEC_FILE) as testsFile:
-        spec = yaml.load(testsFile)
+        spec = yaml.safe_load(testsFile)
         metafunc.parametrize(
             ['function', 'args', 'expected_url', 'root_url'],
             [
