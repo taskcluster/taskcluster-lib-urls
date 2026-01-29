@@ -1,5 +1,3 @@
-const assert = require('assert');
-
 const normalizeRootUrl = rootUrl => rootUrl.replace(/\/*$/, '');
 const cleanPath = path => path.replace(/^\/*/, '');
 
