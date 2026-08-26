@@ -7,6 +7,7 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.Yaml;
 
@@ -26,7 +27,7 @@ public class URLsTest {
      */
     @Test
     public void testURLs() throws Exception {
-        Yaml yaml = new Yaml(new Constructor(TestsSpecification.class));
+        Yaml yaml = new Yaml(new Constructor(TestsSpecification.class, new LoaderOptions()));
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("tests.yml");
         TestsSpecification spec = yaml.load(inputStream);
         for (TestCase test : spec.getTests()) {
