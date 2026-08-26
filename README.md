@@ -118,6 +118,19 @@ Go Usage
 
 [![GoDoc](https://godoc.org/github.com/taskcluster/taskcluster-lib-urls?status.svg)](https://godoc.org/github.com/taskcluster/taskcluster-lib-urls)
 
+Add it to your project with:
+
+```sh
+go get github.com/taskcluster/taskcluster-lib-urls/v13
+```
+
+```go
+import tcurls "github.com/taskcluster/taskcluster-lib-urls/v13"
+```
+
+Note the `/v13` suffix: Go requires the module path to carry the major version for
+v2 and above.
+
 The go package exports the following functions:
 
 ```go
@@ -251,6 +264,11 @@ Make the Node release first, as Python's version depends on its `package.json`. 
 $ npm version minor  # or patch, or major
 $ git push upstream
 ```
+
+Go consumers resolve the pushed git tag directly, so there is no separate publish step
+for Go. When making a **major** version bump, you must also update the module path in
+`go.mod` to match (`.../v13` -> `.../v14`) in the same commit, or Go will reject the new
+tag with `module path must match major version`.
 
 Once that's done, build the Python sdists (only possible by the [maintainers on pypi](https://pypi.org/project/taskcluster-urls/#files)):
 

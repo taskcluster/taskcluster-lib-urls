@@ -1,4 +1,4 @@
-module github.com/taskcluster/taskcluster-lib-urls
+module github.com/taskcluster/taskcluster-lib-urls/v13
 
 go 1.23.5
 
