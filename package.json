@@ -5,9 +5,11 @@
   "description": "Build urls for taskcluster resources.",
   "license": "MPL-2.0",
   "scripts": {
-    "lint": "eslint src/*.js test/*.js",
+    "lint": "biome check",
     "pretest": "yarn lint",
-    "test": "mocha test/*_test.js"
+    "test": "mocha test/*_test.js",
+    "lint:fix": "biome check --write",
+    "format": "biome format --write"
   },
   "files": [
     "src/index.js"
@@ -18,8 +20,7 @@
   },
   "main": "./src/index.js",
   "devDependencies": {
-    "eslint": "^7.0.0",
-    "eslint-config-taskcluster": "^4.0.0",
+    "@biomejs/biome": "^2.5.5",
     "js-yaml": "^5.0.0",
     "mocha": "^11.0.0"
   },
