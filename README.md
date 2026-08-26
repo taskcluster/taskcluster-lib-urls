@@ -255,30 +255,47 @@ mvn test
 Releasing
 ---------
 
-New releases should be tested on Travis and Taskcluster to allow for all supported versions of various languages to be tested. Once satisfied that it works, new versions should be created with
-`npm version` rather than by manually editing `package.json` and tags should be pushed to Github. 
+There is no publish automation — `.taskcluster.yml` only runs the test tasks. Every step
+below is manual, and each ecosystem is published separately.
 
-Make the Node release first, as Python's version depends on its `package.json`.  This follows the typical tag-and-push-to-publish approach:
+Make the Node release first, as Python reads its version from `package.json`.
+
+### Node / npm
 
 ```sh
-$ npm version minor  # or patch, or major
-$ git push upstream
+npm version minor  # or patch, or major
+git push upstream --follow-tags
+npm publish
 ```
 
-Go consumers resolve the pushed git tag directly, so there is no separate publish step
-for Go. When making a **major** version bump, you must also update the module path in
-`go.mod` to match (`.../v13` -> `.../v14`) in the same commit, or Go will reject the new
-tag with `module path must match major version`.
+Use `npm version` rather than editing `package.json` by hand. `--follow-tags` matters: a
+plain `git push` will not push the tag `npm version` just created, and both the GitHub
+release and Go consumers depend on that tag.
 
-Once that's done, build the Python sdists (only possible by the [maintainers on pypi](https://pypi.org/project/taskcluster-urls/#files)):
+### Go
+
+Go consumers resolve the pushed git tag directly, so there is no separate publish step.
+When making a **major** version bump you must also update the module path in `go.mod` to
+match (`.../v13` -> `.../v14`) in the same commit, or Go will reject the new tag with
+`module path must match major version`.
+
+### Python / PyPI
+
+Requires being one of the [maintainers on PyPI](https://pypi.org/project/taskcluster-urls/#files).
+The version is read from `package.json`, so there is nothing to bump here.
 
 ```sh
-rm -rf dist/*
-python setup.py sdist bdist_wheel
-python3 setup.py bdist_wheel
-pip install twine
+rm -rf dist build *.egg-info
+python3 -m pip install --upgrade build twine
+python3 -m build
+twine check dist/*
 twine upload dist/*
 ```
+
+### Java / Maven
+
+Versioned independently in `pom.xml` and released to Maven Central on its own schedule;
+it does not track the npm version.
 
 Make sure to update [the changelog](https://github.com/taskcluster/taskcluster-lib-urls/releases)!
 
